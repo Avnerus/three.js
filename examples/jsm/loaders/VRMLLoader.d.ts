@@ -1,8 +1,6 @@
-import {
-	Scene,
-	Loader,
-	LoadingManager
-} from '../../../src/Three';
+import { Loader } from "../../../src/loaders/Loader";
+import { LoadingManager } from "../../../src/loaders/LoadingManager";
+import { Scene } from "../../../src/scenes/Scene";
 
 export class VRMLLoader extends Loader {
 

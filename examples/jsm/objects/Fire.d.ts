@@ -1,18 +1,16 @@
-import {
-	BufferGeometry,
-	Color,
-	Clock,
-	DataTexture,
-	Mesh,
-	OrthographicCamera,
-	PlaneBufferGeometry,
-	Scene,
-	ShaderMaterial,
-	Texture,
-	Uniform,
-	WebGLRenderer,
-	WebGLRenderTarget
-} from '../../../src/Three';
+import { OrthographicCamera } from "../../../src/cameras/OrthographicCamera";
+import { BufferGeometry } from "../../../src/core/BufferGeometry";
+import { Clock } from "../../../src/core/Clock";
+import { Uniform } from "../../../src/core/Uniform";
+import { PlaneBufferGeometry } from "../../../src/geometries/Geometries";
+import { ShaderMaterial } from "../../../src/materials/Materials";
+import { Color } from "../../../src/math/Color";
+import { Mesh } from "../../../src/objects/Mesh";
+import { WebGLRenderer } from "../../../src/renderers/WebGLRenderer";
+import { WebGLRenderTarget } from "../../../src/renderers/WebGLRenderTarget";
+import { Scene } from "../../../src/scenes/Scene";
+import { DataTexture } from "../../../src/textures/DataTexture";
+import { Texture } from "../../../src/textures/Texture";
 
 export interface FireOptions {
 	textureWidth?: number;
@@ -36,7 +34,7 @@ export interface FireOptions {
 
 export class Fire extends Mesh {
 
-	constructor( geometry: BufferGeometry, options: FireOptions );
+	constructor(geometry: BufferGeometry, options: FireOptions);
 	clock: Clock;
 	color1: Color;
 	color2: Color;
@@ -74,14 +72,14 @@ export class Fire extends Mesh {
 	addSource( u: number, v: number, radius: number, density?: number, windX?: number, windY?: number ): Uint8Array;
 	clearDiffuse(): void;
 	clearSources(): Uint8Array;
-	configShaders( dt: number ): void;
-	renderDiffuse( renderer: WebGLRenderer ): void;
+	configShaders(dt: number): void;
+	renderDiffuse(renderer: WebGLRenderer): void;
 	renderDrift( renderer: WebGLRenderer ): void;
 	renderProject( renderer: WebGLRenderer ): void;
 	renderSource( renderer: WebGLRenderer ): void;
 	restoreRenderState( renderer: WebGLRenderer ): void;
-	saveRenderState( renderer: WebGLRenderer ): void;
-	setSourceMap( texture: Texture ): void;
+	saveRenderState(renderer: WebGLRenderer): void;
+	setSourceMap(texture: Texture): void;
 	swapTextures(): void;
 
 	static SourceShader: SourceShader;

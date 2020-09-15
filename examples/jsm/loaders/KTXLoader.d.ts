@@ -1,9 +1,6 @@
-import {
-	LoadingManager,
-	CompressedTextureLoader,
-	PixelFormat,
-	CompressedPixelFormat
-} from '../../../src/Three';
+import { CompressedPixelFormat, PixelFormat } from "../../../src/constants";
+import { CompressedTextureLoader } from "../../../src/loaders/CompressedTextureLoader";
+import { LoadingManager } from "../../../src/loaders/LoadingManager";
 
 export interface KTX {
 	mipmaps: object[];

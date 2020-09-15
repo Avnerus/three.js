@@ -1,8 +1,6 @@
-import {
-	Matrix4,
-	Mesh,
-	Vector3
-} from '../../../src/Three';
+import { Matrix4 } from "../../../src/math/Matrix4";
+import { Vector3 } from "../../../src/math/Vector3";
+import { Mesh } from "../../../src/objects/Mesh";
 
 export class TubePainter {
 
@@ -10,7 +8,7 @@ export class TubePainter {
 
 	mesh: Mesh;
 
-	stroke( position1: Vector3, position2: Vector3, matrix1: Matrix4, matrix2: Matrix4 ): void;
+	stroke(position1: Vector3, position2: Vector3, matrix1: Matrix4, matrix2: Matrix4): void;
 	updateGeometry( start: number, end: number ): void;
 
 }

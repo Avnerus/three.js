@@ -1,12 +1,10 @@
-import {
-	BufferGeometry,
-	Color,
-	Geometry,
-	Mesh,
-	Side,
-	Texture,
-	Vector3
-} from '../../../src/Three';
+import { Side } from "../../../src/constants";
+import { BufferGeometry } from "../../../src/core/BufferGeometry";
+import { Geometry } from "../../../src/core/Geometry";
+import { Color } from "../../../src/math/Color";
+import { Vector3 } from "../../../src/math/Vector3";
+import { Mesh } from "../../../src/objects/Mesh";
+import { Texture } from "../../../src/textures/Texture";
 
 export interface WaterOptions {
 	textureWidth?: number;
@@ -26,6 +24,6 @@ export interface WaterOptions {
 
 export class Water extends Mesh {
 
-	constructor( geometry: Geometry | BufferGeometry, options: WaterOptions );
+	constructor(geometry: Geometry | BufferGeometry, options: WaterOptions);
 
 }

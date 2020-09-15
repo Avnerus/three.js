@@ -1,11 +1,9 @@
-import {
-	AnimationAction,
-	AnimationMixer,
-	BufferGeometry,
-	Geometry,
-	Material,
-	Mesh
-} from '../../../src/Three';
+import { AnimationAction } from "../../../src/animation/AnimationAction";
+import { AnimationMixer } from "../../../src/animation/AnimationMixer";
+import { BufferGeometry } from "../../../src/core/BufferGeometry";
+import { Geometry } from "../../../src/core/Geometry";
+import { Material } from "../../../src/materials/Material";
+import { Mesh } from "../../../src/objects/Mesh";
 
 export class MorphAnimMesh extends Mesh {
 

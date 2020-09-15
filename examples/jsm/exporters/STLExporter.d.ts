@@ -1,4 +1,4 @@
-import { Object3D } from '../../../src/Three';
+import { Object3D } from "../../../src/core/Object3D";
 
 export interface STLExporterOptions {
 	binary?: boolean;

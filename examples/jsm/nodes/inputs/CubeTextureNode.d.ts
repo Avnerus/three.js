@@ -1,12 +1,11 @@
-import { CubeTexture } from '../../../../src/Three';
-
+import { CubeTexture } from '../../../../src/textures/CubeTexture';
 import { InputNode } from '../core/InputNode';
 import { Node } from '../core/Node';
 import { NodeBuilder } from '../core/NodeBuilder';
 
 export class CubeTextureNode extends InputNode {
 
-	constructor( value: CubeTexture, uv?: Node, bias?: Node );
+	constructor(value: CubeTexture, uv?: Node, bias?: Node);
 
 	value: CubeTexture;
 	uv: Node | undefined;

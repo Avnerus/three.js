@@ -1,8 +1,6 @@
-import {
-	Mesh,
-	Loader,
-	LoadingManager
-} from '../../../src/Three';
+import { Loader } from "../../../src/loaders/Loader";
+import { LoadingManager } from "../../../src/loaders/LoadingManager";
+import { Mesh } from "../../../src/objects/Mesh";
 
 export interface XResult {
 	animations: object[];

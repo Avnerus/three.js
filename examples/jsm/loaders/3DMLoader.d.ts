@@ -1,8 +1,6 @@
-import {
-	Loader,
-	LoadingManager,
-	Object3D
-} from '../../../src/Three';
+import { Object3D } from "../../../src/core/Object3D";
+import { Loader } from "../../../src/loaders/Loader";
+import { LoadingManager } from "../../../src/loaders/LoadingManager";
 
 export class Rhino3dmLoader extends Loader {
 

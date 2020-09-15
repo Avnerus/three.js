@@ -1,7 +1,3 @@
-import {
-	Object3D,
-	LineSegments
-} from '../../../src/Three';
 
 /**
  * @deprecated Use {@link EdgesGeometry THREE.EdgesGeometry}
@@ -9,6 +5,9 @@ import {
 // export class EdgesHelper extends LineSegments {
 //	 constructor(object: Object3D, hex?: number, thresholdAngle?: number);
 // }
+
+import { Object3D } from "../../../src/core/Object3D";
+import { LineSegments } from "../../../src/objects/LineSegments";
 
 export class FaceNormalsHelper extends LineSegments {
 

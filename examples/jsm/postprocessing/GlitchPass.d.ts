@@ -1,8 +1,5 @@
-import {
-	ShaderMaterial,
-	DataTexture
-} from '../../../src/Three';
-
+import { ShaderMaterial } from '../../../src/materials/Materials';
+import { DataTexture } from '../../../src/textures/DataTexture';
 import { Pass } from './Pass';
 
 export class GlitchPass extends Pass {
@@ -16,6 +13,6 @@ export class GlitchPass extends Pass {
 	randX: number;
 
 	generateTrigger(): void;
-	generateHeightmap( dt_size: number ): DataTexture;
+	generateHeightmap(dt_size: number): DataTexture;
 
 }

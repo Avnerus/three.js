@@ -1,11 +1,7 @@
-import {
-	Mesh,
-	OrthographicCamera,
-	Scene,
-	WebGLRenderTarget,
-	WebGLRenderTargetOptions
-} from '../../../../src/Three';
-
+import { OrthographicCamera } from '../../../../src/cameras/OrthographicCamera';
+import { Mesh } from '../../../../src/objects/Mesh';
+import { WebGLRenderTarget, WebGLRenderTargetOptions } from '../../../../src/renderers/WebGLRenderTarget';
+import { Scene } from '../../../../src/scenes/Scene';
 import { NodeBuilder } from '../core/NodeBuilder';
 import { NodeFrame } from '../core/NodeFrame';
 import { TextureNode } from './TextureNode';

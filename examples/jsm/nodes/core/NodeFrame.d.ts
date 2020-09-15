@@ -1,8 +1,5 @@
-import {
-	Texture,
-	WebGLRenderer
-} from '../../../../src/Three';
-
+import { WebGLRenderer } from '../../../../src/renderers/WebGLRenderer';
+import { Texture } from '../../../../src/textures/Texture';
 import { Node } from './Node';
 
 export class NodeFrame {

@@ -1,8 +1,10 @@
-import { Camera, MOUSE, TOUCH, Vector3 } from '../../../src/Three';
+import { Camera } from "../../../src/cameras/Camera";
+import { MOUSE, TOUCH } from "../../../src/constants";
+import { Vector3 } from "../../../src/math/Vector3";
 
 export class OrbitControls {
 
-	constructor( object: Camera, domElement?: HTMLElement );
+	constructor(object: Camera, domElement?: HTMLElement);
 
 	object: Camera;
 	domElement: HTMLElement | HTMLDocument;

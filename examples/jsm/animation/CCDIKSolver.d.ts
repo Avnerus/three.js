@@ -1,6 +1,4 @@
-import {
-	SkinnedMesh,
-} from '../../../src/Three';
+import { SkinnedMesh } from "../../../src/objects/SkinnedMesh";
 
 export interface IKS {
 	effector: number;

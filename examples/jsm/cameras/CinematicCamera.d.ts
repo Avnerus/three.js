@@ -1,9 +1,7 @@
-import {
-	PerspectiveCamera,
-	ShaderMaterial,
-	Scene,
-	WebGLRenderer
-} from '../../../src/Three';
+import { PerspectiveCamera } from "../../../src/cameras/PerspectiveCamera";
+import { ShaderMaterial } from "../../../src/materials/Materials";
+import { WebGLRenderer } from "../../../src/renderers/WebGLRenderer";
+import { Scene } from "../../../src/scenes/Scene";
 
 export class CinematicCamera extends PerspectiveCamera {
 
@@ -28,6 +26,6 @@ export class CinematicCamera extends PerspectiveCamera {
 	saturate( x: number ): number;
 	focusAt( focusDistance: number ): void;
 	initPostProcessing(): void;
-	renderCinematic( scene: Scene, renderer: WebGLRenderer ): void;
+	renderCinematic(scene: Scene, renderer: WebGLRenderer): void;
 
 }

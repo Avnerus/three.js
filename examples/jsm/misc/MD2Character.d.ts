@@ -1,9 +1,7 @@
-import {
-	Object3D,
-	Mesh,
-	Texture,
-	AnimationMixer
-} from '../../../src/Three';
+import { AnimationMixer } from "../../../src/animation/AnimationMixer";
+import { Object3D } from "../../../src/core/Object3D";
+import { Mesh } from "../../../src/objects/Mesh";
+import { Texture } from "../../../src/textures/Texture";
 
 export interface MD2PartsConfig {
 	baseUrl: string,

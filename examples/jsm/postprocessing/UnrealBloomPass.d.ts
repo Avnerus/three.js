@@ -1,17 +1,13 @@
-import {
-	Color,
-	MeshBasicMaterial,
-	ShaderMaterial,
-	Vector2,
-	Vector3,
-	WebGLRenderTarget
-} from '../../../src/Three';
-
+import { MeshBasicMaterial, ShaderMaterial } from '../../../src/materials/Materials';
+import { Color } from '../../../src/math/Color';
+import { Vector2 } from '../../../src/math/Vector2';
+import { Vector3 } from '../../../src/math/Vector3';
+import { WebGLRenderTarget } from '../../../src/renderers/WebGLRenderTarget';
 import { Pass } from './Pass';
 
 export class UnrealBloomPass extends Pass {
 
-	constructor( resolution: Vector2, strength: number, radius: number, threshold: number );
+	constructor(resolution: Vector2, strength: number, radius: number, threshold: number);
 	resolution: Vector2;
 	strength: number;
 	radius: number;

@@ -1,13 +1,11 @@
-import {
-	Object3D,
-	Scene,
-	Camera,
-	Vector2,
-	Vector3,
-	Vector4,
-	Color,
-	Material
-} from '../../../src/Three';
+import { Camera } from "../../../src/cameras/Camera";
+import { Object3D } from "../../../src/core/Object3D";
+import { Material } from "../../../src/materials/Material";
+import { Color } from "../../../src/math/Color";
+import { Vector2 } from "../../../src/math/Vector2";
+import { Vector3 } from "../../../src/math/Vector3";
+import { Vector4 } from "../../../src/math/Vector4";
+import { Scene } from "../../../src/scenes/Scene";
 
 export class RenderableObject {
 
@@ -76,6 +74,6 @@ export class Projector {
 
 	constructor();
 
-	projectScene( scene: Scene, camera: Camera, sortObjects: boolean, sortElements: boolean ): any;
+	projectScene(scene: Scene, camera: Camera, sortObjects: boolean, sortElements: boolean): any;
 
 }

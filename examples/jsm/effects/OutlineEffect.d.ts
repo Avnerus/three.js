@@ -1,12 +1,10 @@
-import {
-	Camera,
-	Scene,
-	Vector2,
-	Vector4,
-	WebGLRenderer,
-	WebGLRenderTarget,
-	WebGLShadowMap
-} from '../../../src/Three';
+import { Camera } from "../../../src/cameras/Camera";
+import { Vector2 } from "../../../src/math/Vector2";
+import { Vector4 } from "../../../src/math/Vector4";
+import { WebGLShadowMap } from "../../../src/renderers/webgl/WebGLShadowMap";
+import { WebGLRenderer } from "../../../src/renderers/WebGLRenderer";
+import { WebGLRenderTarget } from "../../../src/renderers/WebGLRenderTarget";
+import { Scene } from "../../../src/scenes/Scene";
 
 export interface OutlineEffectParameters {
 	defaultThickness?: number;

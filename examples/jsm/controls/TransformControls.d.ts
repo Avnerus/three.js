@@ -1,12 +1,10 @@
-import {
-	Object3D,
-	Camera,
-	MOUSE
-} from '../../../src/Three';
+import { Camera } from "../../../src/cameras/Camera";
+import { MOUSE } from "../../../src/constants";
+import { Object3D } from "../../../src/core/Object3D";
 
 export class TransformControls extends Object3D {
 
-	constructor( object: Camera, domElement?: HTMLElement );
+	constructor(object: Camera, domElement?: HTMLElement);
 
 	domElement: HTMLElement;
 

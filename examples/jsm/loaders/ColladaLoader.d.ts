@@ -1,10 +1,7 @@
-import {
-	AnimationClip,
-	Loader,
-	LoadingManager,
-	Scene
-} from '../../../src/Three';
-
+import { AnimationClip } from "../../../src/animation/AnimationClip";
+import { Loader } from "../../../src/loaders/Loader";
+import { LoadingManager } from "../../../src/loaders/LoadingManager";
+import { Scene } from "../../../src/scenes/Scene";
 
 export interface Collada {
 	animations: AnimationClip[];

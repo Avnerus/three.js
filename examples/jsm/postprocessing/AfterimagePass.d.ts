@@ -1,8 +1,5 @@
-import {
-	WebGLRenderTarget,
-	ShaderMaterial
-} from '../../../src/Three';
-
+import { ShaderMaterial } from '../../../src/materials/Materials';
+import { WebGLRenderTarget } from '../../../src/renderers/WebGLRenderTarget';
 import { Pass } from './Pass';
 
 export class AfterimagePass extends Pass {

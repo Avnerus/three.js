@@ -1,7 +1,5 @@
-import {
-	Object3D,
-	AnimationClip
-} from '../../../src/Three';
+import { AnimationClip } from "../../../src/animation/AnimationClip";
+import { Object3D } from "../../../src/core/Object3D";
 
 export interface GLTFExporterOptions {
 	binary?: boolean;

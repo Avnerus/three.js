@@ -1,8 +1,5 @@
-import {
-	ShaderMaterial,
-	WebGLRenderer
-} from '../../../../src/Three';
-
+import { ShaderMaterial } from '../../../../src/materials/Materials.js';
+import { WebGLRenderer } from '../../../../src/renderers/WebGLRenderer.js';
 import { Node } from '../core/Node.js';
 import { NodeBuilder } from '../core/NodeBuilder';
 import { NodeFrame } from '../core/NodeFrame';

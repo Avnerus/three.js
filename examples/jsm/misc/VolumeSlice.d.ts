@@ -1,8 +1,5 @@
-import {
-	Matrix3,
-	Mesh,
-} from '../../../src/Three';
-
+import { Matrix3 } from '../../../src/math/Matrix3';
+import { Mesh } from '../../../src/objects/Mesh';
 import { Volume } from './Volume';
 
 export class VolumeSlice {

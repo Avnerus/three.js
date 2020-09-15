@@ -1,8 +1,6 @@
-import {
-	Camera,
-	Scene,
-	WebGLRenderer
-} from '../../../src/Three';
+import { Camera } from "../../../src/cameras/Camera";
+import { WebGLRenderer } from "../../../src/renderers/WebGLRenderer";
+import { Scene } from "../../../src/scenes/Scene";
 
 export interface AsciiEffectOptions {
 	resolution?: number;

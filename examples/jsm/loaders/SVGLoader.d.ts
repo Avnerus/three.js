@@ -1,10 +1,8 @@
-import {
-	Loader,
-	LoadingManager,
-	ShapePath,
-	BufferGeometry,
-	Vector3
-} from '../../../src/Three';
+import { BufferGeometry } from "../../../src/core/BufferGeometry";
+import { ShapePath } from "../../../src/extras/core/ShapePath";
+import { Loader } from "../../../src/loaders/Loader";
+import { LoadingManager } from "../../../src/loaders/LoadingManager";
+import { Vector3 } from "../../../src/math/Vector3";
 
 export interface SVGResult {
 	paths: ShapePath[];
@@ -29,8 +27,8 @@ export class SVGLoader extends Loader {
 	load( url: string, onLoad: ( data: SVGResult ) => void, onProgress?: ( event: ProgressEvent ) => void, onError?: ( event: ErrorEvent ) => void ) : void;
 	parse( text: string ) : SVGResult;
 
-	static getStrokeStyle( width?: number, color?: string, lineJoin?: string, lineCap?: string, miterLimit?: number ): StrokeStyle;
-	static pointsToStroke( points: Vector3[], style: StrokeStyle, arcDivisions?: number, minDistance?: number ): BufferGeometry;
+	static getStrokeStyle(width?: number, color?: string, lineJoin?: string, lineCap?: string, miterLimit?: number): StrokeStyle;
+	static pointsToStroke(points: Vector3[], style: StrokeStyle, arcDivisions?: number, minDistance?: number): BufferGeometry;
 	static pointsToStrokeWithBuffers( points: Vector3[], style: StrokeStyle, arcDivisions?: number, minDistance?: number, vertices?: number[], normals?: number[], uvs?: number[], vertexOffset?: number ): number;
 
 }

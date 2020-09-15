@@ -1,8 +1,6 @@
-import {
-	Object3D,
-	Mesh,
-	Texture
-} from '../../../src/Three';
+import { Object3D } from "../../../src/core/Object3D";
+import { Mesh } from "../../../src/objects/Mesh";
+import { Texture } from "../../../src/textures/Texture";
 
 export class MD2CharacterComplex {
 

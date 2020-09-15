@@ -1,7 +1,4 @@
-import {
-	Matrix3,
-} from '../../../src/Three';
-
+import { Matrix3 } from '../../../src/math/Matrix3.js';
 import { VolumeSlice } from './VolumeSlice.js';
 
 export class Volume {

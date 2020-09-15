@@ -1,6 +1,4 @@
-import {
-	BufferGeometry
-} from '../../../src/Three';
+import { BufferGeometry } from "../../../src/core/BufferGeometry";
 
 export class TeapotBufferGeometry extends BufferGeometry {
 

@@ -1,7 +1,5 @@
-import {
-	Object3D,
-	LineSegments
-} from '../../../src/Three';
+import { Object3D } from "../../../src/core/Object3D";
+import { LineSegments } from "../../../src/objects/LineSegments";
 
 export class VertexNormalsHelper extends LineSegments {
 

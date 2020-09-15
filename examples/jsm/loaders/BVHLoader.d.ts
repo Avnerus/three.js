@@ -1,10 +1,7 @@
-import {
-	AnimationClip,
-	Skeleton,
-	Loader,
-	LoadingManager
-} from '../../../src/Three';
-
+import { AnimationClip } from "../../../src/animation/AnimationClip";
+import { Loader } from "../../../src/loaders/Loader";
+import { LoadingManager } from "../../../src/loaders/LoadingManager";
+import { Skeleton } from "../../../src/objects/Skeleton";
 
 export interface BVH {
 	clip: AnimationClip;

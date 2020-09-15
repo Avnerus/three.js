@@ -1,11 +1,10 @@
-import { Vector2 } from '../../../../src/Three';
-
+import { Vector2 } from '../../../../src/math/Vector2';
 import { InputNode } from '../core/InputNode';
 import { NodeBuilder } from '../core/NodeBuilder';
 
 export class Vector2Node extends InputNode {
 
-	constructor( x: Vector2 | number, y?: number );
+	constructor(x: Vector2 | number, y?: number);
 
 	value: Vector2;
 	nodeType: string;

@@ -1,11 +1,9 @@
-import {
-	AnimationClip,
-	Audio,
-	Camera,
-	Mesh,
-	Object3D,
-	SkinnedMesh
-} from '../../../src/Three';
+import { AnimationClip } from "../../../src/animation/AnimationClip";
+import { Audio } from "../../../src/audio/Audio";
+import { Camera } from "../../../src/cameras/Camera";
+import { Object3D } from "../../../src/core/Object3D";
+import { Mesh } from "../../../src/objects/Mesh";
+import { SkinnedMesh } from "../../../src/objects/SkinnedMesh";
 
 export interface MMDAnimationHelperParameter {
 	sync?: boolean;
@@ -31,7 +29,7 @@ export interface MMDAnimationHelperPoseParameter {
 
 export class MMDAnimationHelper {
 
-	constructor( params?: MMDAnimationHelperParameter );
+	constructor(params?: MMDAnimationHelperParameter);
 	meshes: Mesh[];
 	camera: Camera | null;
 	cameraTarget: Object3D;

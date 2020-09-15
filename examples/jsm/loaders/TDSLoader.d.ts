@@ -1,12 +1,10 @@
-import {
-	Color,
-	Group,
-	Loader,
-	LoadingManager,
-	Material,
-	Mesh,
-	Texture
-} from '../../../src/Three';
+import { Loader } from "../../../src/loaders/Loader";
+import { LoadingManager } from "../../../src/loaders/LoadingManager";
+import { Material } from "../../../src/materials/Material";
+import { Color } from "../../../src/math/Color";
+import { Group } from "../../../src/objects/Group";
+import { Mesh } from "../../../src/objects/Mesh";
+import { Texture } from "../../../src/textures/Texture";
 
 export class TDSLoader extends Loader {
 
@@ -25,14 +23,14 @@ export class TDSLoader extends Loader {
 	endChunk( chunk: object ): void;
 	nextChunk( data: DataView, chunk: object ): void;
 	readByte( data: DataView ): number;
-	readChunk( data: DataView ): object;
-	readColor( data: DataView ): Color;
+	readChunk(data: DataView): object;
+	readColor(data: DataView): Color;
 	readDWord( data: DataView ): number;
 	readFaceArray( data: DataView, mesh: Mesh ): void;
 	readFile( arraybuffer: ArrayBuffer, path: string ): void;
 	readFloat( data: DataView ): number;
-	readInt( data: DataView ): number;
-	readMap( data: DataView, path: string ): Texture;
+	readInt(data: DataView): number;
+	readMap(data: DataView, path: string): Texture;
 	readMesh( data: DataView ): Mesh;
 	readMeshData( data: DataView, path: string ): void;
 	readMaterialEntry( data: DataView, path: string ): void;

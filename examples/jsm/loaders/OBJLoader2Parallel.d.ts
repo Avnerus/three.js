@@ -1,9 +1,7 @@
-import {
-	LoadingManager
-} from '../../../src/Three';
+import { LoadingManager } from '../../../src/loaders/LoadingManager';
+import { WorkerExecutionSupport } from './obj2/worker/main/WorkerExecutionSupport';
 import { OBJLoader2 } from './OBJLoader2';
 
-import { WorkerExecutionSupport } from './obj2/worker/main/WorkerExecutionSupport';
 
 export class OBJLoader2Parallel extends OBJLoader2 {
 

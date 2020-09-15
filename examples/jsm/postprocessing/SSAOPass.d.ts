@@ -1,21 +1,16 @@
-import {
-	Camera,
-	Color,
-	DataTexture,
-	Material,
-	MeshNormalMaterial,
-	Scene,
-	ShaderMaterial,
-	Vector3,
-	WebGLRenderer,
-	WebGLRenderTarget
-} from '../../../src/Three';
-
+import { Camera } from '../../../src/cameras/Camera';
+import { Material, MeshNormalMaterial, ShaderMaterial } from '../../../src/materials/Materials';
+import { Color } from '../../../src/math/Color';
+import { Vector3 } from '../../../src/math/Vector3';
+import { WebGLRenderer } from '../../../src/renderers/WebGLRenderer';
+import { WebGLRenderTarget } from '../../../src/renderers/WebGLRenderTarget';
+import { Scene } from '../../../src/scenes/Scene';
+import { DataTexture } from '../../../src/textures/DataTexture';
 import { Pass } from './Pass';
 
 export class SSAOPass extends Pass {
 
-	constructor( scene: Scene, camera: Camera, width?: number, height?: number );
+	constructor(scene: Scene, camera: Camera, width?: number, height?: number);
 	scene: Scene;
 	camera: Camera;
 	width: number;
@@ -52,7 +47,7 @@ export class SSAOPass extends Pass {
 	dipose(): void;
 	generateSampleKernel(): Vector3[];
 	generateRandomKernelRotations(): void;
-	renderPass( renderer: WebGLRenderer, passMaterial: Material, renderTarget: WebGLRenderTarget, clearColor?: Color | string | number, clearAlpha?: number ): void;
+	renderPass(renderer: WebGLRenderer, passMaterial: Material, renderTarget: WebGLRenderTarget, clearColor?: Color | string | number, clearAlpha?: number): void;
 	renderOverride( renderer: WebGLRenderer, overrideMaterial: Material, renderTarget: WebGLRenderTarget, clearColor?: Color | string | number, clearAlpha?: number ): void;
 
 }

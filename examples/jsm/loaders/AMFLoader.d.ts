@@ -1,8 +1,6 @@
-import {
-	Loader,
-	LoadingManager,
-	Group
-} from '../../../src/Three';
+import { Loader } from "../../../src/loaders/Loader";
+import { LoadingManager } from "../../../src/loaders/LoadingManager";
+import { Group } from "../../../src/objects/Group";
 
 export class AMFLoader extends Loader {
 

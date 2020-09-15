@@ -1,8 +1,6 @@
-import {
-	BoxBufferGeometry,
-	Mesh,
-	ShaderMaterial
-} from '../../../src/Three';
+import { BoxBufferGeometry } from "../../../src/geometries/Geometries";
+import { ShaderMaterial } from "../../../src/materials/Materials";
+import { Mesh } from "../../../src/objects/Mesh";
 
 export class Sky extends Mesh {
 

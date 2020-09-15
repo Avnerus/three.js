@@ -1,8 +1,6 @@
-import {
-	Group,
-	Loader,
-	LoadingManager
-} from '../../../src/Three';
+import { Loader } from "../../../src/loaders/Loader";
+import { LoadingManager } from "../../../src/loaders/LoadingManager";
+import { Group } from "../../../src/objects/Group";
 
 export class GCodeLoader extends Loader {
 

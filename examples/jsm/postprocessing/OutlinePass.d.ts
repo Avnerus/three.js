@@ -1,22 +1,17 @@
-import {
-	Vector2,
-	Scene,
-	Camera,
-	Object3D,
-	Color,
-	Matrix4,
-	MeshBasicMaterial,
-	MeshDepthMaterial,
-	ShaderMaterial,
-	WebGLRenderTarget,
-	Texture
-} from '../../../src/Three';
-
 import { Pass } from './Pass';
+import { Vector2 } from '../../../src/math/Vector2';
+import { Scene } from '../../../src/scenes/Scene';
+import { Camera } from '../../../src/cameras/Camera';
+import { Object3D } from '../../../src/core/Object3D';
+import { Color } from '../../../src/math/Color';
+import { MeshBasicMaterial, MeshDepthMaterial, ShaderMaterial } from '../../../src/materials/Materials';
+import { WebGLRenderTarget } from '../../../src/renderers/WebGLRenderTarget';
+import { Matrix4 } from '../../../src/math/Matrix4';
+import { Texture } from '../../../src/textures/Texture';
 
 export class OutlinePass extends Pass {
 
-	constructor( resolution: Vector2, scene: Scene, camera: Camera, selectedObjects?: Object3D[] );
+	constructor(resolution: Vector2, scene: Scene, camera: Camera, selectedObjects?: Object3D[]);
 	renderScene: Scene;
 	renderCamera: Camera;
 	selectedObjects: Object3D[];

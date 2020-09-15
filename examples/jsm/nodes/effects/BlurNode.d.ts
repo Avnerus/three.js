@@ -1,12 +1,11 @@
-import { Vector2 } from '../../../../src/Three';
-
-import { TempNode } from '../core/TempNode';
-import { NodeFrame } from '../core/NodeFrame';
+import { Vector2 } from '../../../../src/math/Vector2';
 import { UVNode } from '../accessors/UVNode';
-import { Vector2Node } from '../inputs/Vector2Node';
-import { FloatNode } from '../inputs/FloatNode';
 import { FunctionNode } from '../core/FunctionNode';
+import { NodeFrame } from '../core/NodeFrame';
+import { TempNode } from '../core/TempNode';
+import { FloatNode } from '../inputs/FloatNode';
 import { TextureNode } from '../inputs/TextureNode';
+import { Vector2Node } from '../inputs/Vector2Node';
 
 export class BlurNode extends TempNode {
 

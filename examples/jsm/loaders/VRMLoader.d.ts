@@ -1,10 +1,7 @@
-import {
-	Loader,
-	LoadingManager
-} from '../../../src/Three';
-
-import { GLTFLoader, GLTF } from './GLTFLoader';
+import { Loader } from '../../../src/loaders/Loader';
+import { LoadingManager } from '../../../src/loaders/LoadingManager';
 import { DRACOLoader } from './DRACOLoader';
+import { GLTF, GLTFLoader } from './GLTFLoader';
 
 export class VRMLoader extends Loader {
 

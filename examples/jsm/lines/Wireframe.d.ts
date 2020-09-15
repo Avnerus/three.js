@@ -1,7 +1,4 @@
-import {
-	Mesh,
-} from '../../../src/Three';
-
+import { Mesh } from '../../../src/objects/Mesh';
 import { LineMaterial } from './LineMaterial';
 import { LineSegmentsGeometry } from './LineSegmentsGeometry';
 

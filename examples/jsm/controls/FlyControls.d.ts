@@ -1,10 +1,9 @@
-import {
-	Camera, EventDispatcher
-} from '../../../src/Three';
+import { Camera } from "../../../src/cameras/Camera";
+import { EventDispatcher } from "../../../src/core/EventDispatcher";
 
 export class FlyControls extends EventDispatcher {
 
-	constructor( object: Camera, domElement?: HTMLElement );
+	constructor(object: Camera, domElement?: HTMLElement);
 
 	object: Camera;
 	domElement: HTMLElement | HTMLDocument;

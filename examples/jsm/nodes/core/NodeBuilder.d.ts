@@ -1,10 +1,7 @@
-import {
-	Material,
-	Texture,
-	TextureEncoding,
-	WebGLRenderer
-} from '../../../../src/Three';
-
+import { TextureEncoding } from '../../../../src/constants';
+import { Material } from '../../../../src/materials/Material';
+import { WebGLRenderer } from '../../../../src/renderers/WebGLRenderer';
+import { Texture } from '../../../../src/textures/Texture';
 import { Node } from './Node';
 import { NodeUniform } from './NodeUniform';
 

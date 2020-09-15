@@ -1,5 +1,4 @@
-import { Vector2 } from '../../../../src/Three';
-
+import { Vector2 } from '../../../../src/math/Vector2';
 import { NodeFrame } from '../core/NodeFrame';
 import { Vector2Node } from '../inputs/Vector2Node';
 

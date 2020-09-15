@@ -1,7 +1,5 @@
-import {
-	AnimationClip,
-	Vector3
-} from '../../../src/Three';
+import { AnimationClip } from "../../../src/animation/AnimationClip";
+import { Vector3 } from "../../../src/math/Vector3";
 
 export class AnimationClipCreator {
 

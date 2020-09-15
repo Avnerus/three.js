@@ -1,12 +1,10 @@
-import {
-	Mesh,
-	Texture,
-	Color
-} from '../../../src/Three';
+import { Color } from "../../../src/math/Color";
+import { Mesh } from "../../../src/objects/Mesh";
+import { Texture } from "../../../src/textures/Texture";
 
 export class LensflareElement {
 
-	constructor( texture: Texture, size?: number, distance?: number, color?: Color );
+	constructor(texture: Texture, size?: number, distance?: number, color?: Color);
 	texture: Texture;
 	size: number;
 	distance: number;

@@ -1,7 +1,4 @@
-import {
-	ShaderMaterial
-} from '../../../src/Three';
-
+import { ShaderMaterial } from '../../../src/materials/Materials';
 import { Pass } from './Pass';
 
 export class ShaderPass extends Pass {

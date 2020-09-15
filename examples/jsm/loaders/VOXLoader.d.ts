@@ -1,7 +1,5 @@
-import {
-	Loader,
-	LoadingManager
-} from '../../../src/Three';
+import { Loader } from "../../../src/loaders/Loader";
+import { LoadingManager } from "../../../src/loaders/LoadingManager";
 
 export class VOXLoader extends Loader {
 

@@ -1,8 +1,5 @@
-import {
-	Material,
-	Vector3
-} from '../../../src/Three';
-
+import { Material } from '../../../src/materials/Material';
+import { Vector3 } from '../../../src/math/Vector3';
 import { LightningStrike, RayParameters } from '../geometries/LightningStrike';
 
 export interface StormParams {
@@ -23,7 +20,7 @@ export interface StormParams {
 
 	isEternal?: boolean;
 
-	onRayPosition?: ( source: Vector3, dest: Vector3 ) => void;
+	onRayPosition?: (source: Vector3, dest: Vector3) => void;
 	onLightningDown?: ( lightning: LightningStrike ) => void;
 }
 

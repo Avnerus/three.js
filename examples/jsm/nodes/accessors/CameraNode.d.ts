@@ -1,8 +1,7 @@
-import { Camera } from '../../../../src/Three';
-
+import { Camera } from '../../../../src/cameras/Camera';
+import { FunctionNode } from '../core/FunctionNode';
 import { NodeFrame } from '../core/NodeFrame';
 import { TempNode } from '../core/TempNode';
-import { FunctionNode } from '../core/FunctionNode';
 import { FloatNode } from '../inputs/FloatNode';
 
 export class CameraNode extends TempNode {

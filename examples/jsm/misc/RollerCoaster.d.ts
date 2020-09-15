@@ -1,13 +1,11 @@
-import {
-	BufferGeometry,
-	Curve,
-	Mesh,
-	Vector3
-} from '../../../src/Three';
+import { BufferGeometry } from "../../../src/core/BufferGeometry";
+import { Curve } from "../../../src/extras/core/Curve";
+import { Vector3 } from "../../../src/math/Vector3";
+import { Mesh } from "../../../src/objects/Mesh";
 
 export class RollerCoasterGeometry extends BufferGeometry {
 
-	constructor( curve: Curve<Vector3>, divisions: number );
+	constructor(curve: Curve<Vector3>, divisions: number);
 
 }
 
@@ -31,6 +29,6 @@ export class SkyGeometry extends BufferGeometry {
 
 export class TreesGeometry extends BufferGeometry {
 
-	constructor( landscape: Mesh );
+	constructor(landscape: Mesh);
 
 }

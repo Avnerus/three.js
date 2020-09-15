@@ -1,7 +1,4 @@
-import {
-	Mesh
-} from '../../../../../src/Three';
-
+import { Mesh } from '../../../../../src/objects/Mesh';
 import { MaterialHandler } from './MaterialHandler';
 
 export class MeshReceiver {
@@ -17,7 +14,7 @@ export class MeshReceiver {
 	};
 	materialHandler: MaterialHandler;
 
-	buildMeshes( meshPayload: object ): Mesh[];
+	buildMeshes(meshPayload: object): Mesh[];
 	setLogging( enabled: boolean, debug: boolean ): void;
 
 }

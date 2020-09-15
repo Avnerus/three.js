@@ -1,12 +1,10 @@
-import {
-	BufferGeometry,
-	Material,
-	ImmediateRenderObject
-} from '../../../src/Three';
+import { BufferGeometry } from "../../../src/core/BufferGeometry";
+import { ImmediateRenderObject } from "../../../src/extras/objects/ImmediateRenderObject";
+import { Material } from "../../../src/materials/Material";
 
 export class MarchingCubes extends ImmediateRenderObject {
 
-	constructor( resolution: number, material: Material, enableUvs?: boolean, enableColors?: boolean );
+	constructor(resolution: number, material: Material, enableUvs?: boolean, enableColors?: boolean);
 
 	enableUvs: boolean;
 	enableColors: boolean;

@@ -1,6 +1,4 @@
-import {
-	Vector3
-} from '../../../src/Three';
+import { Vector3 } from "../../../src/math/Vector3";
 
 export interface RandomGenerator {
 	random(): number;

@@ -1,13 +1,11 @@
-import {
-	BufferGeometry,
-	Geometry,
-	Material,
-	Mesh
-} from '../../../src/Three';
+import { BufferGeometry } from "../../../src/core/BufferGeometry";
+import { Geometry } from "../../../src/core/Geometry";
+import { Material } from "../../../src/materials/Material";
+import { Mesh } from "../../../src/objects/Mesh";
 
 export class MorphBlendMesh extends Mesh {
 
-	constructor( geometry: BufferGeometry | Geometry, material: Material );
+	constructor(geometry: BufferGeometry | Geometry, material: Material);
 	animationsMap: object;
 	animationsList: object[];
 

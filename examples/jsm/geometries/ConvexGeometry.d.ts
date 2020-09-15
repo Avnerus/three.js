@@ -1,12 +1,10 @@
-import {
-	BufferGeometry,
-	Geometry,
-	Vector3
-} from '../../../src/Three';
+import { BufferGeometry } from "../../../src/core/BufferGeometry";
+import { Geometry } from "../../../src/core/Geometry";
+import { Vector3 } from "../../../src/math/Vector3";
 
 export class ConvexGeometry extends Geometry {
 
-	constructor( points: Vector3[] );
+	constructor(points: Vector3[]);
 
 }
 

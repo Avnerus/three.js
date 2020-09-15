@@ -1,8 +1,6 @@
-import {
-	Object3D,
-	Ray,
-	Vector3
-} from '../../../src/Three';
+import { Object3D } from "../../../src/core/Object3D";
+import { Ray } from "../../../src/math/Ray";
+import { Vector3 } from "../../../src/math/Vector3";
 
 declare class Face {
 
@@ -89,8 +87,8 @@ export class ConvexHull {
 	computeInitialHull(): this;
 	containsPoint( point: Vector3 ): boolean;
 	deleteFaceVertices( face: Face, absorbingFace: Face ): this;
-	intersectRay( ray: Ray, target: Vector3 ): Vector3 | null;
-	intersectsRay( ray: Ray ): boolean;
+	intersectRay(ray: Ray, target: Vector3): Vector3 | null;
+	intersectsRay(ray: Ray): boolean;
 	makeEmpty(): this;
 	nextVertexToAdd(): VertexNode | undefined;
 	reindexFaces(): this;

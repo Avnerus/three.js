@@ -1,11 +1,8 @@
-import {
-	Color,
-	Vector2
-} from '../../../../../src/Three';
-
+import { Color } from '../../../../../src/math/Color';
+import { Vector2 } from '../../../../../src/math/Vector2';
 import { NodeBuilder } from '../../core/NodeBuilder';
-import { StandardNode } from './StandardNode';
 import { PropertyNode } from '../../inputs/PropertyNode';
+import { StandardNode } from './StandardNode';
 
 export class MeshStandardNode extends StandardNode {
 

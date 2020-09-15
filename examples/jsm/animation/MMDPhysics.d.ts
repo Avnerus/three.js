@@ -1,12 +1,10 @@
-import {
-	Bone,
-	Euler,
-	Matrix4,
-	Object3D,
-	Quaternion,
-	SkinnedMesh,
-	Vector3
-} from '../../../src/Three';
+import { Object3D } from "../../../src/core/Object3D";
+import { Euler } from "../../../src/math/Euler";
+import { Matrix4 } from "../../../src/math/Matrix4";
+import { Quaternion } from "../../../src/math/Quaternion";
+import { Vector3 } from "../../../src/math/Vector3";
+import { Bone } from "../../../src/objects/Bone";
+import { SkinnedMesh } from "../../../src/objects/SkinnedMesh";
 
 export interface MMDPhysicsParameter {
 	unitStep?: number;
@@ -28,8 +26,8 @@ export class MMDPhysics {
 
 	update( delta: number ): this;
 	reset(): this;
-	warmup( cycles: number ): this;
-	setGravity( gravity: Vector3 ): this;
+	warmup(cycles: number): this;
+	setGravity(gravity: Vector3): this;
 	createHelper(): MMDPhysicsHelper;
 
 }

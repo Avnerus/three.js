@@ -1,10 +1,9 @@
-import {
-	AnimationClip,
-	FileLoader,
-	Loader,
-	LoadingManager,
-	SkinnedMesh
-} from '../../../src/Three';
+import { AnimationClip } from "../../../src/animation/AnimationClip";
+import { Camera } from "../../../src/cameras/Camera";
+import { FileLoader } from "../../../src/loaders/FileLoader";
+import { Loader } from "../../../src/loaders/Loader";
+import { LoadingManager } from "../../../src/loaders/LoadingManager";
+import { SkinnedMesh } from "../../../src/objects/SkinnedMesh";
 
 export interface MMDLoaderAnimationObject {
 	animation: AnimationClip;
@@ -21,7 +20,7 @@ export class MMDLoader extends Loader {
 	parser: object | null;
 
 	load( url: string, onLoad: ( mesh: SkinnedMesh ) => void, onProgress?: ( event: ProgressEvent ) => void, onError?: ( event: ErrorEvent ) => void ): void;
-	loadAnimation( url: string, object: SkinnedMesh | THREE.Camera, onLoad: ( object: SkinnedMesh | AnimationClip ) => void, onProgress?: ( event: ProgressEvent ) => void, onError?: ( event: ErrorEvent ) => void ): void;
+	loadAnimation( url: string, object: SkinnedMesh | Camera, onLoad: ( object: SkinnedMesh | AnimationClip ) => void, onProgress?: ( event: ProgressEvent ) => void, onError?: ( event: ErrorEvent ) => void ): void;
 	loadPMD( url: string, onLoad: ( object: object ) => void, onProgress?: ( event: ProgressEvent ) => void, onError?: ( event: ErrorEvent ) => void ): void;
 	loadPMX( url: string, onLoad: ( object: object ) => void, onProgress?: ( event: ProgressEvent ) => void, onError?: ( event: ErrorEvent ) => void ): void;
 	loadVMD( url: string, onLoad: ( object: object ) => void, onProgress?: ( event: ProgressEvent ) => void, onError?: ( event: ErrorEvent ) => void ): void;

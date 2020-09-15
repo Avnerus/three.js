@@ -1,4 +1,4 @@
-import { Scene } from '../../../src/Three';
+import { Scene } from "../../../src/scenes/Scene";
 
 export class RoomEnvironment extends Scene {
 

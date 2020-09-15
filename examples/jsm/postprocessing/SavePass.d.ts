@@ -1,13 +1,10 @@
-import {
-	ShaderMaterial,
-	WebGLRenderTarget
-} from '../../../src/Three';
-
+import { ShaderMaterial } from '../../../src/materials/Materials';
+import { WebGLRenderTarget } from '../../../src/renderers/WebGLRenderTarget';
 import { Pass } from './Pass';
 
 export class SavePass extends Pass {
 
-	constructor( renderTarget: WebGLRenderTarget );
+	constructor(renderTarget: WebGLRenderTarget);
 	textureID: string;
 	renderTarget: WebGLRenderTarget;
 	uniforms: object;

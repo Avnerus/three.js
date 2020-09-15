@@ -1,14 +1,10 @@
-import {
-	Material,
-	LoadingManager,
-	Mapping,
-	Loader,
-	BufferGeometry,
-	Side,
-	Texture,
-	Vector2,
-	Wrapping
-} from '../../../src/Three';
+import { Mapping, Side, Wrapping } from "../../../src/constants";
+import { BufferGeometry } from "../../../src/core/BufferGeometry";
+import { Loader } from "../../../src/loaders/Loader";
+import { LoadingManager } from "../../../src/loaders/LoadingManager";
+import { Material } from "../../../src/materials/Material";
+import { Vector2 } from "../../../src/math/Vector2";
+import { Texture } from "../../../src/textures/Texture";
 
 export interface MaterialCreatorOptions {
 	/**

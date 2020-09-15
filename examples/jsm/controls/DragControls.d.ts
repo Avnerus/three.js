@@ -1,12 +1,10 @@
-import {
-	Camera,
-	EventDispatcher,
-	Object3D
-} from '../../../src/Three';
+import { Camera } from "../../../src/cameras/Camera";
+import { EventDispatcher } from "../../../src/core/EventDispatcher";
+import { Object3D } from "../../../src/core/Object3D";
 
 export class DragControls extends EventDispatcher {
 
-	constructor( objects: Object3D[], camera: Camera, domElement?: HTMLElement );
+	constructor(objects: Object3D[], camera: Camera, domElement?: HTMLElement);
 
 	object: Camera;
 

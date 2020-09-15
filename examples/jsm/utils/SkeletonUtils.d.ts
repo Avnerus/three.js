@@ -1,7 +1,12 @@
-import { AnimationClip, Bone, Matrix4, Object3D, Skeleton, SkeletonHelper } from '../../../src/Three';
+import { AnimationClip } from "../../../src/animation/AnimationClip";
+import { Object3D } from "../../../src/core/Object3D";
+import { SkeletonHelper } from "../../../src/helpers/SkeletonHelper";
+import { Matrix4 } from "../../../src/math/Matrix4";
+import { Bone } from "../../../src/objects/Bone";
+import { Skeleton } from "../../../src/objects/Skeleton";
 
 export namespace SkeletonUtils {
-	export function retarget( target: Object3D | Skeleton,
+	export function retarget(target: Object3D | Skeleton,
 					 source: Object3D | Skeleton,
 					 options: {} ): void;
 

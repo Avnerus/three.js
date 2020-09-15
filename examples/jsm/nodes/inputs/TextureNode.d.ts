@@ -1,11 +1,8 @@
-import {
-	Texture
-} from '../../../../src/Three';
-
-import { InputNode } from '../core/InputNode';
-import { NodeBuilder } from '../core/NodeBuilder';
-import { Node } from '../core/Node';
+import { Texture } from '../../../../src/textures/Texture';
 import { UVNode } from '../accessors/UVNode';
+import { InputNode } from '../core/InputNode';
+import { Node } from '../core/Node';
+import { NodeBuilder } from '../core/NodeBuilder';
 
 export class TextureNode extends InputNode {
 

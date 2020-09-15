@@ -1,6 +1,4 @@
-import {
-	Geometry
-} from '../../../src/Three';
+import { Geometry } from "../../../src/core/Geometry";
 
 export class TessellateModifier {
 

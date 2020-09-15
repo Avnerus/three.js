@@ -1,16 +1,14 @@
-import {
-	OrthographicCamera,
-	Mesh,
-	Scene,
-	ShaderMaterial,
-	Vector3,
-	WebGLRenderer,
-	WebGLRenderTarget,
-} from '../../../src/Three';
+import { OrthographicCamera } from "../../../src/cameras/OrthographicCamera";
+import { ShaderMaterial } from "../../../src/materials/Materials";
+import { Vector3 } from "../../../src/math/Vector3";
+import { WebGLRenderer } from "../../../src/renderers/WebGLRenderer";
+import { WebGLRenderTarget } from "../../../src/renderers/WebGLRenderTarget";
+import { Scene } from "../../../src/scenes/Scene";
+import { Mesh } from "../../../src/objects/Mesh";
 
 export class Ocean {
 
-	constructor( renderer: WebGLRenderer, camera?: OrthographicCamera, scene?: Scene, options?: object );
+	constructor(renderer: WebGLRenderer, camera?: OrthographicCamera, scene?: Scene, options?: object);
 
 	changed: boolean;
 	initial: boolean;

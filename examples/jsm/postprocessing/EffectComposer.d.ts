@@ -1,15 +1,12 @@
-import {
-	Clock,
-	WebGLRenderer,
-	WebGLRenderTarget,
-} from '../../../src/Three';
-
+import { Clock } from '../../../src/core/Clock';
+import { WebGLRenderer } from '../../../src/renderers/WebGLRenderer';
+import { WebGLRenderTarget } from '../../../src/renderers/WebGLRenderTarget';
 import { Pass } from './Pass';
 import { ShaderPass } from './ShaderPass';
 
 export class EffectComposer {
 
-	constructor( renderer: WebGLRenderer, renderTarget?: WebGLRenderTarget );
+	constructor(renderer: WebGLRenderer, renderTarget?: WebGLRenderTarget);
 	renderer: WebGLRenderer;
 	renderTarget1: WebGLRenderTarget;
 	renderTarget2: WebGLRenderTarget;

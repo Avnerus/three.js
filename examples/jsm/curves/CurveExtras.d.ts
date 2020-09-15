@@ -1,8 +1,5 @@
-import {
-	Curve,
-	Vector3
-} from '../../../src/Three';
-
+import { Curve } from "../../../src/extras/core/Curve";
+import { Vector3 } from "../../../src/math/Vector3";
 
 export namespace Curves {
 

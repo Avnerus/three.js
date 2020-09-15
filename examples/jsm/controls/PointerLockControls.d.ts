@@ -1,12 +1,10 @@
-import {
-	Camera,
-	EventDispatcher,
-	Vector3
-} from '../../../src/Three';
+import { EventDispatcher } from "../../../src/core/EventDispatcher";
+import { Camera } from "../../../src/cameras/Camera";
+import { Vector3 } from "../../../src/math/Vector3";
 
 export class PointerLockControls extends EventDispatcher {
 
-	constructor( camera: Camera, domElement?: HTMLElement );
+	constructor(camera: Camera, domElement?: HTMLElement);
 
 	domElement: HTMLElement;
 
@@ -21,7 +19,7 @@ export class PointerLockControls extends EventDispatcher {
 	disconnect(): void;
 	dispose(): void;
 	getObject(): Camera;
-	getDirection( v: Vector3 ): Vector3;
+	getDirection(v: Vector3): Vector3;
 	moveForward( distance: number ): void;
 	moveRight( distance: number ): void;
 	lock(): void;

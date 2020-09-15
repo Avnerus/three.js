@@ -1,7 +1,5 @@
-import {
-	BufferGeometry,
-	Geometry
-} from '../../../src/Three';
+import { BufferGeometry } from "../../../src/core/BufferGeometry";
+import { Geometry } from "../../../src/core/Geometry";
 
 export class SubdivisionModifier {
 

@@ -1,7 +1,5 @@
-import {
-	WebGLRenderer
-} from '../../../src/Three';
+import { WebGLRenderer } from "../../../src/renderers/WebGLRenderer";
 
 export namespace VRButton {
-	export function createButton( renderer: WebGLRenderer ): HTMLElement;
+	export function createButton(renderer: WebGLRenderer): HTMLElement;
 }

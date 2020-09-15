@@ -1,11 +1,10 @@
-import { Matrix4 } from '../../../../src/Three';
-
+import { Matrix4 } from '../../../../src/math/Matrix4';
 import { InputNode } from '../core/InputNode';
 import { NodeBuilder } from '../core/NodeBuilder';
 
 export class Matrix4Node extends InputNode {
 
-	constructor( matrix?: Matrix4 );
+	constructor(matrix?: Matrix4);
 
 	value: Matrix4;
 	nodeType: string;

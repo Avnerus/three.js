@@ -1,8 +1,5 @@
-import {
-	Object3D,
-	Vector3
-} from '../../../../src/Three';
-
+import { Object3D } from '../../../../src/core/Object3D';
+import { Vector3 } from '../../../../src/math/Vector3';
 import { NodeFrame } from '../core/NodeFrame';
 import { Vector3Node } from '../inputs/Vector3Node';
 

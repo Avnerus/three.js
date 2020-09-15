@@ -1,6 +1,4 @@
-import {
-	Material
-} from '../../../../../src/Three';
+import { Material } from "../../../../../src/materials/Material";
 
 export class MaterialHandler {
 
@@ -19,7 +17,7 @@ export class MaterialHandler {
 	addPayloadMaterials( materialPayload: object ): object;
 	setLogging( enabled: boolean, debug: boolean ): void;
 	getMaterials(): object;
-	getMaterial( materialName: string ): Material;
+	getMaterial(materialName: string): Material;
 	getMaterialsJSON(): object;
 	clearMaterials(): void;
 

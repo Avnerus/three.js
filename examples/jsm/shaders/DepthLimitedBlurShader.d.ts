@@ -1,8 +1,6 @@
-import {
-	Uniform,
-	Vector2,
-	Material
-} from '../../../src/Three';
+import { Uniform } from "../../../src/core/Uniform";
+import { Material } from "../../../src/materials/Material";
+import { Vector2 } from "../../../src/math/Vector2";
 
 export const DepthLimitedBlurShader: {
 	defines: {
@@ -25,7 +23,7 @@ export const DepthLimitedBlurShader: {
 };
 
 export const BlurShaderUtils: {
-	createSampleWeights( kernelRadius: number, stdDev: number ): number[];
-	createSampleOffsets( kernelRadius: number, uvIncrement: Vector2 ): Vector2[];
-	configure( configure: Material, kernelRadius: number, stdDev: number, uvIncrement: Vector2 ): void;
+	createSampleWeights(kernelRadius: number, stdDev: number): number[];
+	createSampleOffsets(kernelRadius: number, uvIncrement: Vector2): Vector2[];
+	configure(configure: Material, kernelRadius: number, stdDev: number, uvIncrement: Vector2): void;
 };
