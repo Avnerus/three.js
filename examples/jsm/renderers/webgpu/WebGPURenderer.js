@@ -130,7 +130,7 @@ class WebGPURenderer {
 
 		}
 
-		this._parameters.enabledExtensions = ( parameters.enabledExtensions === undefined ) ? [] : parameters.enabledExtensions;
+		this._parameters.extensions = ( parameters.extensions === undefined ) ? [] : parameters.extensions;
 		this._parameters.limits = ( parameters.limits === undefined ) ? {} : parameters.limits;
 
 	}
@@ -146,7 +146,7 @@ class WebGPURenderer {
 		const adapter = await navigator.gpu.requestAdapter( adapterOptions );
 
 		const deviceDescriptor = {
-			enabledExtensions: parameters.enabledExtensions,
+			extensions: parameters.extensions,
 			limits: parameters.limits
 		};
 
@@ -159,7 +159,7 @@ class WebGPURenderer {
 
 		const swapChain = context.configureSwapChain( {
 			device: device,
-			format: GPUTextureFormat.BRGA8Unorm
+			format: GPUTextureFormat.BRGA8Unorm // this is the only valid swap chain format right now (r121)
 		} );
 
 		this._adapter = adapter;
@@ -173,7 +173,7 @@ class WebGPURenderer {
 		this._geometries = new WebGPUGeometries( this._attributes, this._info );
 		this._textures = new WebGPUTextures( device, this._properties, this._info, compiler );
 		this._objects = new WebGPUObjects( this._geometries, this._info );
-		this._renderPipelines = new WebGPURenderPipelines( device, compiler, parameters.sampleCount );
+		this._renderPipelines = new WebGPURenderPipelines( this, this._properties, device, compiler, parameters.sampleCount );
 		this._bindings = new WebGPUBindings( device, this._info, this._properties, this._textures, this._renderPipelines );
 		this._renderLists = new WebGPURenderLists();
 		this._background = new WebGPUBackground( this );
@@ -526,6 +526,12 @@ class WebGPURenderer {
 			this._textures.initRenderTarget( renderTarget );
 
 		}
+
+	}
+
+	getRenderTarget() {
+
+		return this._renderTarget;
 
 	}
 

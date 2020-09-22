@@ -2,11 +2,11 @@ import WebGPUBinding from './WebGPUBinding.js';
 
 class WebGPUSampledTexture extends WebGPUBinding {
 
-	constructor() {
+	constructor( name ) {
 
-		super();
+		super( name );
 
-		this.name = '';
+		this.dimension = '2d';
 
 		this.type = 'sampled-texture';
 		this.visibility = GPUShaderStage.FRAGMENT;
@@ -17,12 +17,21 @@ class WebGPUSampledTexture extends WebGPUBinding {
 
 	}
 
-	setName( name ) {
 
-		this.name = name;
+}
+
+class WebGPUSampledCubeTexture extends WebGPUSampledTexture {
+
+	constructor( name ) {
+
+		super( name );
+
+		this.dimension = 'cube';
+
+		Object.defineProperty( this, 'isSampledCubeTexture', { value: true } );
 
 	}
 
 }
 
-export default WebGPUSampledTexture;
+export { WebGPUSampledTexture, WebGPUSampledCubeTexture };

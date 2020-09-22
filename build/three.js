@@ -1,3 +1,4 @@
+// threejs.org/license
 (function (global, factory) {
 	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports) :
 	typeof define === 'function' && define.amd ? define(['exports'], factory) :
@@ -23451,7 +23452,7 @@
 
 			if ( controller ) {
 
-				controller.dispatchEvent( { type: event.type } );
+				controller.dispatchEvent( { type: event.type, data: event.inputSource } );
 
 			}
 
@@ -28072,13 +28073,13 @@
 			var vEnd = new Vector3();
 			var interSegment = new Vector3();
 			var interRay = new Vector3();
-			var step = ( this && this.isLineSegments ) ? 2 : 1;
+			var step = this.isLineSegments ? 2 : 1;
 
 			if ( geometry.isBufferGeometry ) {
 
 				var index = geometry.index;
 				var attributes = geometry.attributes;
-				var positions = attributes.position.array;
+				var positionAttribute = attributes.position;
 
 				if ( index !== null ) {
 
@@ -28089,8 +28090,8 @@
 						var a = indices[ i ];
 						var b = indices[ i + 1 ];
 
-						vStart.fromArray( positions, a * 3 );
-						vEnd.fromArray( positions, b * 3 );
+						vStart.fromBufferAttribute( positionAttribute, a );
+						vEnd.fromBufferAttribute( positionAttribute, b );
 
 						var distSq = _ray$1.distanceSqToSegment( vStart, vEnd, interRay, interSegment );
 
@@ -28119,10 +28120,10 @@
 
 				} else {
 
-					for ( var i$1 = 0, l$1 = positions.length / 3 - 1; i$1 < l$1; i$1 += step ) {
+					for ( var i$1 = 0, l$1 = positionAttribute.count - 1; i$1 < l$1; i$1 += step ) {
 
-						vStart.fromArray( positions, 3 * i$1 );
-						vEnd.fromArray( positions, 3 * i$1 + 3 );
+						vStart.fromBufferAttribute( positionAttribute, i$1 );
+						vEnd.fromBufferAttribute( positionAttribute, i$1 + 1 );
 
 						var distSq$1 = _ray$1.distanceSqToSegment( vStart, vEnd, interRay, interSegment );
 
@@ -28443,7 +28444,7 @@
 
 				var index = geometry.index;
 				var attributes = geometry.attributes;
-				var positions = attributes.position.array;
+				var positionAttribute = attributes.position;
 
 				if ( index !== null ) {
 
@@ -28453,7 +28454,7 @@
 
 						var a = indices[ i ];
 
-						_position$1.fromArray( positions, a * 3 );
+						_position$1.fromBufferAttribute( positionAttribute, a );
 
 						testPoint( _position$1, a, localThresholdSq, matrixWorld, raycaster, intersects, this );
 
@@ -28461,9 +28462,9 @@
 
 				} else {
 
-					for ( var i$1 = 0, l = positions.length / 3; i$1 < l; i$1 ++ ) {
+					for ( var i$1 = 0, l = positionAttribute.count; i$1 < l; i$1 ++ ) {
 
-						_position$1.fromArray( positions, i$1 * 3 );
+						_position$1.fromBufferAttribute( positionAttribute, i$1 );
 
 						testPoint( _position$1, i$1, localThresholdSq, matrixWorld, raycaster, intersects, this );
 
@@ -32476,7 +32477,12 @@
 
 	}
 
-	function EdgesGeometry( geometry, thresholdAngle ) {
+	var _v0$2 = new Vector3();
+	var _v1$5 = new Vector3();
+	var _normal$1 = new Vector3();
+	var _triangle = new Triangle();
+
+		function EdgesGeometry( geometry, thresholdAngle ) {
 
 			BufferGeometry.call(this);
 
@@ -32488,60 +32494,98 @@
 
 			thresholdAngle = ( thresholdAngle !== undefined ) ? thresholdAngle : 1;
 
-			// buffer
+			if ( geometry.isGeometry ) {
 
-			var vertices = [];
-
-			// helper variables
-
-			var thresholdDot = Math.cos( MathUtils.DEG2RAD * thresholdAngle );
-			var edge = [ 0, 0 ], edges = {};
-			var edge1, edge2, key;
-			var keys = [ 'a', 'b', 'c' ];
-
-			// prepare source geometry
-
-			var geometry2;
-
-			if ( geometry.isBufferGeometry ) {
-
-				geometry2 = new Geometry();
-				geometry2.fromBufferGeometry( geometry );
-
-			} else {
-
-				geometry2 = geometry.clone();
+				geometry = new BufferGeometry().fromGeometry( geometry );
 
 			}
 
-			geometry2.mergeVertices();
-			geometry2.computeFaceNormals();
+			var precisionPoints = 4;
+			var precision = Math.pow( 10, precisionPoints );
+			var thresholdDot = Math.cos( MathUtils.DEG2RAD * thresholdAngle );
 
-			var sourceVertices = geometry2.vertices;
-			var faces = geometry2.faces;
+			var indexAttr = geometry.getIndex();
+			var positionAttr = geometry.getAttribute( 'position' );
+			var indexCount = indexAttr ? indexAttr.count : positionAttr.count;
 
-			// now create a data structure where each entry represents an edge with its adjoining faces
+			var indexArr = [ 0, 0, 0 ];
+			var vertKeys = [ 'a', 'b', 'c' ];
+			var hashes = new Array( 3 );
 
-			for ( var i = 0, l = faces.length; i < l; i ++ ) {
+			var edgeData = {};
+			var vertices = [];
+			for ( var i = 0; i < indexCount; i += 3 ) {
 
-				var face = faces[ i ];
+				if ( indexAttr ) {
 
+					indexArr[ 0 ] = indexAttr.getX( i );
+					indexArr[ 1 ] = indexAttr.getX( i + 1 );
+					indexArr[ 2 ] = indexAttr.getX( i + 2 );
+
+				} else {
+
+					indexArr[ 0 ] = i;
+					indexArr[ 1 ] = i + 1;
+					indexArr[ 2 ] = i + 2;
+
+				}
+
+				var a = _triangle.a;
+				var b = _triangle.b;
+				var c = _triangle.c;
+				a.fromBufferAttribute( positionAttr, indexArr[ 0 ] );
+				b.fromBufferAttribute( positionAttr, indexArr[ 1 ] );
+				c.fromBufferAttribute( positionAttr, indexArr[ 2 ] );
+				_triangle.getNormal( _normal$1 );
+
+				// create hashes for the edge from the vertices
+				hashes[ 0 ] = (Math.round( a.x * precision )) + "," + (Math.round( a.y * precision )) + "," + (Math.round( a.z * precision ));
+				hashes[ 1 ] = (Math.round( b.x * precision )) + "," + (Math.round( b.y * precision )) + "," + (Math.round( b.z * precision ));
+				hashes[ 2 ] = (Math.round( c.x * precision )) + "," + (Math.round( c.y * precision )) + "," + (Math.round( c.z * precision ));
+
+				// skip degenerate triangles
+				if ( hashes[ 0 ] === hashes[ 1 ] || hashes[ 1 ] === hashes[ 2 ] || hashes[ 2 ] === hashes[ 0 ] ) {
+
+					continue;
+
+				}
+
+				// iterate over every edge
 				for ( var j = 0; j < 3; j ++ ) {
 
-					edge1 = face[ keys[ j ] ];
-					edge2 = face[ keys[ ( j + 1 ) % 3 ] ];
-					edge[ 0 ] = Math.min( edge1, edge2 );
-					edge[ 1 ] = Math.max( edge1, edge2 );
+					// get the first and next vertex making up the edge
+					var jNext = ( j + 1 ) % 3;
+					var vecHash0 = hashes[ j ];
+					var vecHash1 = hashes[ jNext ];
+					var v0 = _triangle[ vertKeys[ j ] ];
+					var v1 = _triangle[ vertKeys[ jNext ] ];
 
-					key = edge[ 0 ] + ',' + edge[ 1 ];
+					var hash = vecHash0 + "_" + vecHash1;
+					var reverseHash = vecHash1 + "_" + vecHash0;
 
-					if ( edges[ key ] === undefined ) {
+					if ( reverseHash in edgeData && edgeData[ reverseHash ] ) {
 
-						edges[ key ] = { index1: edge[ 0 ], index2: edge[ 1 ], face1: i, face2: undefined };
+						// if we found a sibling edge add it into the vertex array if
+						// it meets the angle threshold and delete the edge from the map.
+						if ( _normal$1.dot( edgeData[ reverseHash ].normal ) <= thresholdDot ) {
 
-					} else {
+							vertices.push( v0.x, v0.y, v0.z );
+							vertices.push( v1.x, v1.y, v1.z );
 
-						edges[ key ].face2 = i;
+						}
+
+						edgeData[ reverseHash ] = null;
+
+					} else if ( ! ( hash in edgeData ) ) {
+
+						// if we've already got an edge here then skip adding a new one
+						edgeData[ hash ] = {
+
+							index0: indexArr[ j ],
+							index1: indexArr[ jNext ],
+							normal: _normal$1.clone(),
+
+						};
 
 					}
 
@@ -32549,27 +32593,23 @@
 
 			}
 
-			// generate vertices
+			// iterate over all remaining, unmatched edges and add them to the vertex array
+			for ( var key in edgeData ) {
 
-			for ( key in edges ) {
+				if ( edgeData[ key ] ) {
 
-				var e = edges[ key ];
+					var ref = edgeData[ key ];
+					var index0 = ref.index0;
+					var index1 = ref.index1;
+					_v0$2.fromBufferAttribute( positionAttr, index0 );
+					_v1$5.fromBufferAttribute( positionAttr, index1 );
 
-				// an edge is only rendered if the angle (in degrees) between the face normals of the adjoining faces exceeds this value. default = 1 degree.
-
-				if ( e.face2 === undefined || faces[ e.face1 ].normal.dot( faces[ e.face2 ].normal ) <= thresholdDot ) {
-
-					var vertex = sourceVertices[ e.index1 ];
-					vertices.push( vertex.x, vertex.y, vertex.z );
-
-					vertex = sourceVertices[ e.index2 ];
-					vertices.push( vertex.x, vertex.y, vertex.z );
+					vertices.push( _v0$2.x, _v0$2.y, _v0$2.z );
+					vertices.push( _v1$5.x, _v1$5.y, _v1$5.z );
 
 				}
 
 			}
-
-			// build geometry
 
 			this.setAttribute( 'position', new Float32BufferAttribute( vertices, 3 ) );
 
@@ -33302,6 +33342,7 @@
 	 *  clearcoatNormalMap: new THREE.Texture( <Image> ),
 	 *
 	 *  reflectivity: <float>,
+	 *  ior: <float>,
 	 *
 	 *  sheen: <Color>,
 	 *
@@ -33331,6 +33372,19 @@
 		this.clearcoatNormalMap = null;
 
 		this.reflectivity = 0.5; // maps to F0 = 0.04
+
+		Object.defineProperty( this, 'ior', {
+			get: function () {
+
+				return ( 1 + 0.4 * this.reflectivity ) / ( 1 - 0.4 * this.reflectivity );
+
+			},
+			set: function ( ior ) {
+
+				this.reflectivity = MathUtils.clamp( 2.5 * ( ior - 1 ) / ( ior + 1 ), 0, 1 );
+
+			}
+		} );
 
 		this.sheen = null; // null will disable sheen bsdf
 
@@ -36163,6 +36217,7 @@
 		this.manager = ( manager !== undefined ) ? manager : DefaultLoadingManager;
 
 		this.crossOrigin = 'anonymous';
+		this.withCredentials = false;
 		this.path = '';
 		this.resourcePath = '';
 		this.requestHeader = {};
@@ -36190,6 +36245,13 @@
 		setCrossOrigin: function ( crossOrigin ) {
 
 			this.crossOrigin = crossOrigin;
+			return this;
+
+		},
+
+		setWithCredentials: function ( value ) {
+
+			this.withCredentials = value;
 			return this;
 
 		},
@@ -36502,13 +36564,6 @@
 
 		},
 
-		setWithCredentials: function ( value ) {
-
-			this.withCredentials = value;
-			return this;
-
-		},
-
 		setMimeType: function ( value ) {
 
 			this.mimeType = value;
@@ -36535,6 +36590,7 @@
 			var loader = new FileLoader( scope.manager );
 			loader.setPath( scope.path );
 			loader.setRequestHeader( scope.requestHeader );
+			loader.setWithCredentials( scope.withCredentials );
 			loader.load( url, function ( text ) {
 
 				try {
@@ -36608,6 +36664,7 @@
 			loader.setPath( this.path );
 			loader.setResponseType( 'arraybuffer' );
 			loader.setRequestHeader( this.requestHeader );
+			loader.setWithCredentials( scope.withCredentials );
 
 			var loaded = 0;
 
@@ -36866,6 +36923,7 @@
 			loader.setResponseType( 'arraybuffer' );
 			loader.setRequestHeader( this.requestHeader );
 			loader.setPath( this.path );
+			loader.setWithCredentials( scope.withCredentials );
 			loader.load( url, function ( buffer ) {
 
 				var texData = scope.parse( buffer );
@@ -38977,8 +39035,6 @@
 		this.color = new Color( color );
 		this.intensity = intensity !== undefined ? intensity : 1;
 
-		this.receiveShadow = undefined;
-
 	}
 
 	Light.prototype = Object.assign( Object.create( Object3D.prototype ), {
@@ -39025,8 +39081,6 @@
 		Light.call( this, skyColor, intensity );
 
 		this.type = 'HemisphereLight';
-
-		this.castShadow = undefined;
 
 		this.position.copy( Object3D.DefaultUp );
 		this.updateMatrix();
@@ -39610,8 +39664,6 @@
 
 		this.type = 'AmbientLight';
 
-		this.castShadow = undefined;
-
 	}
 
 	AmbientLight.prototype = Object.assign( Object.create( Light.prototype ), {
@@ -39970,6 +40022,7 @@
 			var loader = new FileLoader( scope.manager );
 			loader.setPath( scope.path );
 			loader.setRequestHeader( scope.requestHeader );
+			loader.setWithCredentials( scope.withCredentials );
 			loader.load( url, function ( text ) {
 
 				try {
@@ -40394,6 +40447,7 @@
 			var loader = new FileLoader( scope.manager );
 			loader.setPath( scope.path );
 			loader.setRequestHeader( scope.requestHeader );
+			loader.setWithCredentials( scope.withCredentials );
 			loader.load( url, function ( text ) {
 
 				try {
@@ -40609,9 +40663,10 @@
 			var path = ( this.path === '' ) ? LoaderUtils.extractUrlBase( url ) : this.path;
 			this.resourcePath = this.resourcePath || path;
 
-			var loader = new FileLoader( scope.manager );
+			var loader = new FileLoader( this.manager );
 			loader.setPath( this.path );
 			loader.setRequestHeader( this.requestHeader );
+			loader.setWithCredentials( this.withCredentials );
 			loader.load( url, function ( text ) {
 
 				var json = null;
@@ -41607,7 +41662,10 @@
 
 			}
 
-			fetch( url ).then( function ( res ) {
+			var fetchOptions = {};
+			fetchOptions.credentials = ( this.crossOrigin === 'anonymous' ) ? 'same-origin' : 'include';
+
+			fetch( url, fetchOptions ).then( function ( res ) {
 
 				return res.blob();
 
@@ -42085,6 +42143,7 @@
 			var loader = new FileLoader( this.manager );
 			loader.setPath( this.path );
 			loader.setRequestHeader( this.requestHeader );
+			loader.setWithCredentials( scope.withCredentials );
 			loader.load( url, function ( text ) {
 
 				var json;
@@ -42158,6 +42217,7 @@
 			loader.setResponseType( 'arraybuffer' );
 			loader.setPath( scope.path );
 			loader.setRequestHeader( scope.requestHeader );
+			loader.setWithCredentials( scope.withCredentials );
 			loader.load( url, function ( buffer ) {
 
 				try {
@@ -46002,20 +46062,6 @@
 
 	} );
 
-	/**
-	 * @author raub / https://github.com/raub
-	 */
-
-	/**
-	 * Element size is one of:
-	 * 5126: 4
-	 * 5123: 2
-	 * 5122: 2
-	 * 5125: 4
-	 * 5124: 4
-	 * 5120: 1
-	 * 5121: 1
-	 */
 	function GLBufferAttribute( buffer, type, itemSize, elementSize, count ) {
 
 		this.buffer = buffer;
@@ -47198,7 +47244,7 @@
 		PolarGridHelper.prototype = Object.create( LineSegments.prototype );
 		PolarGridHelper.prototype.constructor = PolarGridHelper;
 
-	var _v1$5 = /*@__PURE__*/ new Vector3();
+	var _v1$6 = /*@__PURE__*/ new Vector3();
 	var _v2$3 = /*@__PURE__*/ new Vector3();
 	var _v3$1 = /*@__PURE__*/ new Vector3();
 
@@ -47253,9 +47299,9 @@
 
 		DirectionalLightHelper.prototype.update = function update () {
 
-			_v1$5.setFromMatrixPosition( this.light.matrixWorld );
+			_v1$6.setFromMatrixPosition( this.light.matrixWorld );
 			_v2$3.setFromMatrixPosition( this.light.target.matrixWorld );
-			_v3$1.subVectors( _v2$3, _v1$5 );
+			_v3$1.subVectors( _v2$3, _v1$6 );
 
 			this.lightPlane.lookAt( _v2$3 );
 

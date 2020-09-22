@@ -150,7 +150,7 @@ export const GPUTextureFormat = {
 	BC4RSNorm: 'bc4-r-snorm',
 	BC5RGUnorm: 'bc5-rg-unorm',
 	BC5RGSnorm: 'bc5-rg-snorm',
-	BC6HRGBUfloat: 'bc6h-rgb-ufloat',
+	BC6HRGBUFloat: 'bc6h-rgb-ufloat',
 	BC6HRGBFloat: 'bc6h-rgb-float',
 	BC7RGBAUnorm: 'bc7-rgba-unorm',
 	BC7RGBAUnormSRGB: 'bc7-rgba-srgb',
@@ -220,7 +220,7 @@ export const GPUStencilOperation = {
 	DecrementWrap: 'decrement-wrap'
 };
 
-// @TODO Move to src/constants.js
+// @TODO: Move to src/constants.js
 
 export const BlendColorFactor = 211;
 export const OneMinusBlendColorFactor = 212;

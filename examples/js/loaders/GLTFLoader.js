@@ -17,6 +17,7 @@ THREE.GLTFLoader = ( function () {
 			return new GLTFMaterialsClearcoatExtension( parser );
 
 		} );
+
 		this.register( function ( parser ) {
 
 			return new GLTFTextureBasisUExtension( parser );
@@ -26,6 +27,12 @@ THREE.GLTFLoader = ( function () {
 		this.register( function ( parser ) {
 
 			return new GLTFMaterialsTransmissionExtension( parser );
+
+		} );
+
+		this.register( function ( parser ) {
+
+			return new GLTFLightsExtension( parser );
 
 		} );
 
@@ -58,7 +65,7 @@ THREE.GLTFLoader = ( function () {
 			// Tells the LoadingManager to track an extra item, which resolves after
 			// the model is fully loaded. This means the count of items loaded will
 			// be incorrect, but ensures manager.onLoad() does not fire early.
-			scope.manager.itemStart( url );
+			this.manager.itemStart( url );
 
 			var _onError = function ( e ) {
 
@@ -77,17 +84,12 @@ THREE.GLTFLoader = ( function () {
 
 			};
 
-			var loader = new THREE.FileLoader( scope.manager );
+			var loader = new THREE.FileLoader( this.manager );
 
 			loader.setPath( this.path );
 			loader.setResponseType( 'arraybuffer' );
 			loader.setRequestHeader( this.requestHeader );
-
-			if ( scope.crossOrigin === 'use-credentials' ) {
-
-				loader.setWithCredentials( true );
-
-			}
+			loader.setWithCredentials( this.withCredentials );
 
 			loader.load( url, function ( data ) {
 
@@ -235,10 +237,6 @@ THREE.GLTFLoader = ( function () {
 
 					switch ( extensionName ) {
 
-						case EXTENSIONS.KHR_LIGHTS_PUNCTUAL:
-							extensions[ extensionName ] = new GLTFLightsExtension( json );
-							break;
-
 						case EXTENSIONS.KHR_MATERIALS_UNLIT:
 							extensions[ extensionName ] = new GLTFMaterialsUnlitExtension();
 							break;
@@ -363,21 +361,53 @@ THREE.GLTFLoader = ( function () {
 	 *
 	 * Specification: https://github.com/KhronosGroup/glTF/tree/master/extensions/2.0/Khronos/KHR_lights_punctual
 	 */
-	function GLTFLightsExtension( json ) {
+	function GLTFLightsExtension( parser ) {
 
+		this.parser = parser;
 		this.name = EXTENSIONS.KHR_LIGHTS_PUNCTUAL;
 
-		var extension = ( json.extensions && json.extensions[ EXTENSIONS.KHR_LIGHTS_PUNCTUAL ] ) || {};
-		this.lightDefs = extension.lights || [];
+		// Object3D instance caches
+		this.cache = { refs: {}, uses: {} };
 
 	}
 
-	GLTFLightsExtension.prototype.loadLight = function ( lightIndex ) {
+	GLTFLightsExtension.prototype._markDefs = function () {
 
-		var lightDef = this.lightDefs[ lightIndex ];
+		var parser = this.parser;
+		var nodeDefs = this.parser.json.nodes || [];
+
+		for ( var nodeIndex = 0, nodeLength = nodeDefs.length; nodeIndex < nodeLength; nodeIndex ++ ) {
+
+			var nodeDef = nodeDefs[ nodeIndex ];
+
+			if ( nodeDef.extensions
+				&& nodeDef.extensions[ this.name ]
+				&& nodeDef.extensions[ this.name ].light !== undefined ) {
+
+				parser._addNodeRef( this.cache, nodeDef.extensions[ this.name ].light );
+
+			}
+
+		}
+
+	};
+
+	GLTFLightsExtension.prototype._loadLight = function ( lightIndex ) {
+
+		var parser = this.parser;
+		var cacheKey = 'light:' + lightIndex;
+		var dependency = parser.cache.get( cacheKey );
+
+		if ( dependency ) return dependency;
+
+		var json = parser.json;
+		var extensions = ( json.extensions && json.extensions[ this.name ] ) || {};
+		var lightDefs = extensions.lights || [];
+		var lightDef = lightDefs[ lightIndex ];
 		var lightNode;
 
 		var color = new THREE.Color( 0xffffff );
+
 		if ( lightDef.color !== undefined ) color.fromArray( lightDef.color );
 
 		var range = lightDef.range !== undefined ? lightDef.range : 0;
@@ -421,9 +451,32 @@ THREE.GLTFLoader = ( function () {
 
 		if ( lightDef.intensity !== undefined ) lightNode.intensity = lightDef.intensity;
 
-		lightNode.name = lightDef.name || ( 'light_' + lightIndex );
+		lightNode.name = parser.createUniqueName( lightDef.name || ( 'light_' + lightIndex ) );
 
-		return Promise.resolve( lightNode );
+		dependency = Promise.resolve( lightNode );
+
+		parser.cache.add( cacheKey, dependency );
+
+		return dependency;
+
+	};
+
+	GLTFLightsExtension.prototype.createNodeAttachment = function ( nodeIndex ) {
+
+		var self = this;
+		var parser = this.parser;
+		var json = parser.json;
+		var nodeDef = json.nodes[ nodeIndex ];
+		var lightDef = ( nodeDef.extensions && nodeDef.extensions[ this.name ] ) || {};
+		var lightIndex = lightDef.light;
+
+		if ( lightIndex === undefined ) return null;
+
+		return this._loadLight( lightIndex ).then( function ( light ) {
+
+			return parser._getNodeRef( self.cache, lightIndex, light );
+
+		} );
 
 	};
 
@@ -1621,6 +1674,9 @@ THREE.GLTFLoader = ( function () {
 		this.cameraCache = { refs: {}, uses: {} };
 		this.lightCache = { refs: {}, uses: {} };
 
+		// Track node names, to ensure no duplicates
+		this.nodeNamesUsed = {};
+
 		// Use an ImageBitmapLoader if imageBitmaps are supported. Moves much of the
 		// expensive work of uploading a texture to the GPU off the main thread.
 		if ( typeof createImageBitmap !== 'undefined' && /Firefox/.test( navigator.userAgent ) === false ) {
@@ -1668,7 +1724,11 @@ THREE.GLTFLoader = ( function () {
 		this.cache.removeAll();
 
 		// Mark the special nodes/meshes in json for efficient parse
-		this._markDefs();
+		this._invokeAll( function ( ext ) {
+
+			return ext._markDefs && ext._markDefs();
+
+		} );
 
 		Promise.all( [
 
@@ -1748,14 +1808,6 @@ THREE.GLTFLoader = ( function () {
 
 			}
 
-			if ( nodeDef.extensions
-				&& nodeDef.extensions[ EXTENSIONS.KHR_LIGHTS_PUNCTUAL ]
-				&& nodeDef.extensions[ EXTENSIONS.KHR_LIGHTS_PUNCTUAL ].light !== undefined ) {
-
-				this._addNodeRef( this.lightCache, nodeDef.extensions[ EXTENSIONS.KHR_LIGHTS_PUNCTUAL ].light );
-
-			}
-
 		}
 
 	};
@@ -1820,11 +1872,13 @@ THREE.GLTFLoader = ( function () {
 
 		for ( var i = 0; i < extensions.length; i ++ ) {
 
-			pending.push( func( extensions[ i ] ) );
+			var result = func( extensions[ i ] );
+
+			if ( result ) pending.push( result );
 
 		}
 
-		return Promise.all( pending );
+		return pending;
 
 	};
 
@@ -1901,10 +1955,6 @@ THREE.GLTFLoader = ( function () {
 
 				case 'camera':
 					dependency = this.loadCamera( index );
-					break;
-
-				case 'light':
-					dependency = this.extensions[ EXTENSIONS.KHR_LIGHTS_PUNCTUAL ].loadLight( index );
 					break;
 
 				default:
@@ -2207,8 +2257,14 @@ THREE.GLTFLoader = ( function () {
 
 				if ( source.mimeType === 'image/png' ) {
 
+					// Inspect the PNG 'IHDR' chunk to determine whether the image could have an
+					// alpha channel. This check is conservative — the image could have an alpha
+					// channel with all values == 1, and the indexed type (colorType == 3) only
+					// sometimes contains alpha.
+					//
 					// https://en.wikipedia.org/wiki/Portable_Network_Graphics#File_header
-					hasAlpha = new DataView( bufferView, 25, 1 ).getUint8( 0, false ) === 6;
+					var colorType = new DataView( bufferView, 25, 1 ).getUint8( 0, false );
+					hasAlpha = colorType === 6 || colorType === 4 || colorType === 3;
 
 				}
 
@@ -2516,11 +2572,11 @@ THREE.GLTFLoader = ( function () {
 
 			} );
 
-			pending.push( this._invokeAll( function ( ext ) {
+			pending.push( Promise.all( this._invokeAll( function ( ext ) {
 
 				return ext.extendMaterialParams && ext.extendMaterialParams( materialIndex, materialParams );
 
-			} ) );
+			} ) ) );
 
 		}
 
@@ -2618,6 +2674,23 @@ THREE.GLTFLoader = ( function () {
 			return material;
 
 		} );
+
+	};
+
+	/** When Object3D instances are targeted by animation, they need unique names. */
+	GLTFParser.prototype.createUniqueName = function ( originalName ) {
+
+		var name = THREE.PropertyBinding.sanitizeNodeName( originalName || '' );
+
+		for ( var i = 1; this.nodeNamesUsed[ name ]; ++ i ) {
+
+			name = originalName + '_' + i;
+
+		}
+
+		this.nodeNamesUsed[ name ] = true;
+
+		return name;
 
 	};
 
@@ -3044,7 +3117,7 @@ THREE.GLTFLoader = ( function () {
 
 				}
 
-				mesh.name = meshDef.name || ( 'mesh_' + meshIndex );
+				mesh.name = parser.createUniqueName( meshDef.name || ( 'mesh_' + meshIndex ) );
 
 				if ( geometries.length > 1 ) mesh.name += '_' + i;
 
@@ -3104,7 +3177,7 @@ THREE.GLTFLoader = ( function () {
 
 		}
 
-		if ( cameraDef.name ) camera.name = cameraDef.name;
+		if ( cameraDef.name ) camera.name = this.createUniqueName( cameraDef.name );
 
 		assignExtrasToUserData( camera, cameraDef );
 
@@ -3346,6 +3419,9 @@ THREE.GLTFLoader = ( function () {
 
 		var nodeDef = json.nodes[ nodeIndex ];
 
+		// reserve node's name before its dependencies, so the root has the intended name.
+		var nodeName = nodeDef.name ? parser.createUniqueName( nodeDef.name ) : '';
+
 		return ( function () {
 
 			var pending = [];
@@ -3389,19 +3465,15 @@ THREE.GLTFLoader = ( function () {
 
 			}
 
-			if ( nodeDef.extensions
-				&& nodeDef.extensions[ EXTENSIONS.KHR_LIGHTS_PUNCTUAL ]
-				&& nodeDef.extensions[ EXTENSIONS.KHR_LIGHTS_PUNCTUAL ].light !== undefined ) {
+			parser._invokeAll( function ( ext ) {
 
-				var lightIndex = nodeDef.extensions[ EXTENSIONS.KHR_LIGHTS_PUNCTUAL ].light;
+				return ext.createNodeAttachment && ext.createNodeAttachment( nodeIndex );
 
-				pending.push( parser.getDependency( 'light', lightIndex ).then( function ( light ) {
+			} ).forEach( function ( promise ) {
 
-					return parser._getNodeRef( parser.lightCache, lightIndex, light );
+				pending.push( promise );
 
-				} ) );
-
-			}
+			} );
 
 			return Promise.all( pending );
 
@@ -3441,7 +3513,7 @@ THREE.GLTFLoader = ( function () {
 			if ( nodeDef.name ) {
 
 				node.userData.name = nodeDef.name;
-				node.name = THREE.PropertyBinding.sanitizeNodeName( nodeDef.name );
+				node.name = nodeName;
 
 			}
 
@@ -3600,7 +3672,7 @@ THREE.GLTFLoader = ( function () {
 			// Loader returns Group, not Scene.
 			// See: https://github.com/mrdoob/three.js/issues/18342#issuecomment-578981172
 			var scene = new THREE.Group();
-			if ( sceneDef.name ) scene.name = sceneDef.name;
+			if ( sceneDef.name ) scene.name = parser.createUniqueName( sceneDef.name );
 
 			assignExtrasToUserData( scene, sceneDef );
 

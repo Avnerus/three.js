@@ -1,7 +1,7 @@
 import WebGPUUniformsGroup from './WebGPUUniformsGroup.js';
-import { FloatUniform, Matrix4Uniform } from './WebGPUUniform.js';
+import { FloatUniform, Matrix3Uniform, Matrix4Uniform } from './WebGPUUniform.js';
 import WebGPUSampler from './WebGPUSampler.js';
-import WebGPUSampledTexture from './WebGPUSampledTexture.js';
+import { WebGPUSampledTexture } from './WebGPUSampledTexture.js';
 
 class WebGPUBindings {
 
@@ -121,14 +121,18 @@ class WebGPUBindings {
 				const material = object.material;
 				const texture = material[ binding.name ];
 
-				textures.updateSampler( texture );
+				if ( texture !== null ) {
 
-				const samplerGPU = textures.getSampler( texture );
+					textures.updateSampler( texture );
 
-				if ( binding.samplerGPU !== samplerGPU ) {
+					const samplerGPU = textures.getSampler( texture );
 
-					binding.samplerGPU = samplerGPU;
-					needsBindGroupRefresh = true;
+					if ( binding.samplerGPU !== samplerGPU ) {
+
+						binding.samplerGPU = samplerGPU;
+						needsBindGroupRefresh = true;
+
+					}
 
 				}
 
@@ -137,13 +141,17 @@ class WebGPUBindings {
 				const material = object.material;
 				const texture = material[ binding.name ];
 
-				const forceUpdate = textures.updateTexture( texture );
-				const textureGPU = textures.getTextureGPU( texture );
+				if ( texture !== null ) {
 
-				if ( binding.textureGPU !== textureGPU || forceUpdate === true ) {
+					const forceUpdate = textures.updateTexture( texture );
+					const textureGPU = textures.getTextureGPU( texture );
 
-					binding.textureGPU = textureGPU;
-					needsBindGroupRefresh = true;
+					if ( binding.textureGPU !== textureGPU || forceUpdate === true ) {
+
+						binding.textureGPU = textureGPU;
+						needsBindGroupRefresh = true;
+
+					}
 
 				}
 
@@ -204,11 +212,19 @@ class WebGPUBindings {
 
 				if ( binding.textureGPU === null ) {
 
-					binding.textureGPU = this.textures.getDefaultTexture();
+					if ( binding.isSampledCubeTexture ) {
+
+						binding.textureGPU = this.textures.getDefaultCubeTexture();
+
+					} else {
+
+						binding.textureGPU = this.textures.getDefaultTexture();
+
+					}
 
 				}
 
-				entries.push( { binding: bindingPoint, resource: binding.textureGPU.createView() } );
+				entries.push( { binding: bindingPoint, resource: binding.textureGPU.createView( { dimension: binding.dimension } ) } );
 
 			}
 
@@ -233,15 +249,17 @@ class WebGPUBindings {
 
 		const modelViewUniform = new Matrix4Uniform( 'modelMatrix' );
 		const modelViewMatrixUniform = new Matrix4Uniform( 'modelViewMatrix' );
+		const normalMatrixUniform = new Matrix3Uniform( 'normalMatrix' );
 
-		const modelGroup = new WebGPUUniformsGroup();
-		modelGroup.setName( 'modelUniforms' );
+		const modelGroup = new WebGPUUniformsGroup( 'modelUniforms' );
 		modelGroup.addUniform( modelViewUniform );
 		modelGroup.addUniform( modelViewMatrixUniform );
+		modelGroup.addUniform( normalMatrixUniform );
 		modelGroup.setOnBeforeUpdate( function ( object/*, camera */ ) {
 
 			modelViewUniform.setValue( object.matrixWorld );
 			modelViewMatrixUniform.setValue( object.modelViewMatrix );
+			normalMatrixUniform.setValue( object.normalMatrix );
 
 		} );
 
@@ -253,10 +271,9 @@ class WebGPUBindings {
 
 		const opacityUniform = new FloatUniform( 'opacity', 1 );
 
-		const opacityGroup = new WebGPUUniformsGroup();
-		opacityGroup.setName( 'opacityUniforms' );
+		const opacityGroup = new WebGPUUniformsGroup( 'opacityUniforms' );
 		opacityGroup.addUniform( opacityUniform );
-		opacityGroup.visibility = GPUShaderStage.FRAGMENT;
+		opacityGroup.setVisibility( GPUShaderStage.FRAGMENT );
 		opacityGroup.setOnBeforeUpdate( function ( object/*, camera */ ) {
 
 			const material = object.material;
@@ -268,13 +285,11 @@ class WebGPUBindings {
 
 		// sampler
 
-		const diffuseSampler = new WebGPUSampler();
-		diffuseSampler.setName( 'map' );
+		const diffuseSampler = new WebGPUSampler( 'map' );
 
 		// texture
 
-		const diffuseTexture = new WebGPUSampledTexture();
-		diffuseTexture.setName( 'map' );
+		const diffuseTexture = new WebGPUSampledTexture( 'map' );
 
 		// the order of WebGPUBinding objects must match the binding order in the shader
 
@@ -297,8 +312,7 @@ class WebGPUBindings {
 		const modelViewUniform = new Matrix4Uniform( 'modelMatrix' );
 		const modelViewMatrixUniform = new Matrix4Uniform( 'modelViewMatrix' );
 
-		const modelGroup = new WebGPUUniformsGroup();
-		modelGroup.setName( 'modelUniforms' );
+		const modelGroup = new WebGPUUniformsGroup( 'modelUniforms' );
 		modelGroup.addUniform( modelViewUniform );
 		modelGroup.addUniform( modelViewMatrixUniform );
 		modelGroup.setOnBeforeUpdate( function ( object/*, camera */ ) {
@@ -328,8 +342,7 @@ class WebGPUBindings {
 		const modelViewUniform = new Matrix4Uniform( 'modelMatrix' );
 		const modelViewMatrixUniform = new Matrix4Uniform( 'modelViewMatrix' );
 
-		const modelGroup = new WebGPUUniformsGroup();
-		modelGroup.setName( 'modelUniforms' );
+		const modelGroup = new WebGPUUniformsGroup( 'modelUniforms' );
 		modelGroup.addUniform( modelViewUniform );
 		modelGroup.addUniform( modelViewMatrixUniform );
 		modelGroup.setOnBeforeUpdate( function ( object/*, camera */ ) {
@@ -355,8 +368,7 @@ class WebGPUBindings {
 		const projectionMatrixUniform = new Matrix4Uniform( 'projectionMatrix' );
 		const viewMatrixUniform = new Matrix4Uniform( 'viewMatrix' );
 
-		const cameraGroup = new WebGPUUniformsGroup();
-		cameraGroup.setName( 'cameraUniforms' );
+		const cameraGroup = new WebGPUUniformsGroup( 'cameraUniforms' );
 		cameraGroup.addUniform( projectionMatrixUniform );
 		cameraGroup.addUniform( viewMatrixUniform );
 		cameraGroup.setOnBeforeUpdate( function ( object, camera ) {
