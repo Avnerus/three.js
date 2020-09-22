@@ -17,6 +17,8 @@ function WebXRManager( renderer, gl ) {
 	let referenceSpace = null;
 	let referenceSpaceType = 'local-floor';
 
+	let offsetReferenceSpace = null;
+
 	let pose = null;
 
 	const controllers = [];
@@ -100,7 +102,7 @@ function WebXRManager( renderer, gl ) {
 
 		if ( controller ) {
 
-			controller.dispatchEvent( { type: event.type } );
+			controller.dispatchEvent( { type: event.type, data: event.inputSource } );
 
 		}
 
@@ -168,6 +170,18 @@ function WebXRManager( renderer, gl ) {
 	this.getReferenceSpace = function () {
 
 		return referenceSpace;
+
+	};
+
+	this.setOffsetReferenceSpace = function ( newReferenceSpace ) {
+
+		offsetReferenceSpace = newReferenceSpace;
+
+	};
+
+	this.resetReferenceSpace = function () {
+
+		offsetReferenceSpace = null;
 
 	};
 
@@ -409,7 +423,7 @@ function WebXRManager( renderer, gl ) {
 
 	function onAnimationFrame( time, frame ) {
 
-		pose = frame.getViewerPose( referenceSpace );
+		pose = frame.getViewerPose( offsetReferenceSpace || referenceSpace );
 
 		if ( pose !== null ) {
 
@@ -464,7 +478,7 @@ function WebXRManager( renderer, gl ) {
 			const controller = controllers[ i ];
 			const inputSource = inputSources[ i ];
 
-			controller.update( inputSource, frame, referenceSpace );
+			controller.update( inputSource, frame, offsetReferenceSpace || referenceSpace );
 
 		}
 
