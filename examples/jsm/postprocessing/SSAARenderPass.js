@@ -1,11 +1,7 @@
-import {
-	AdditiveBlending,
-	LinearFilter,
-	RGBAFormat,
-	ShaderMaterial,
-	UniformsUtils,
-	WebGLRenderTarget
-} from "../../../build/three.module.js";
+import { AdditiveBlending, LinearFilter, RGBAFormat } from "../../../src/constants.js";
+import { ShaderMaterial } from "../../../src/materials/Materials.js";
+import { UniformsUtils } from "../../../src/renderers/shaders/UniformsUtils.js";
+import { WebGLRenderTarget } from "../../../src/renderers/WebGLRenderTarget.js";
 import { Pass } from "../postprocessing/Pass.js";
 import { CopyShader } from "../shaders/CopyShader.js";
 /**

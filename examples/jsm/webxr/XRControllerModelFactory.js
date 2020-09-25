@@ -1,18 +1,15 @@
+import { Object3D } from '../../../src/core/Object3D.js';
+import { SphereBufferGeometry } from '../../../src/geometries/Geometries.js';
+import { MeshBasicMaterial } from '../../../src/materials/Materials.js';
+import { Quaternion } from '../../../src/math/Quaternion.js';
+import { Mesh } from '../../../src/objects/Mesh.js';
 import {
-	Mesh,
-	MeshBasicMaterial,
-	Object3D,
-	Quaternion,
-	SphereBufferGeometry,
-} from "../../../build/three.module.js";
-
+    Constants as MotionControllerConstants,
+    fetchProfile,
+    MotionController
+} from '../libs/motion-controllers.module.js';
 import { GLTFLoader } from '../loaders/GLTFLoader.js';
 
-import {
-	Constants as MotionControllerConstants,
-	fetchProfile,
-	MotionController
-} from '../libs/motion-controllers.module.js';
 
 const DEFAULT_PROFILES_PATH = 'https://cdn.jsdelivr.net/npm/@webxr-input-profiles/assets@1.0/dist/profiles';
 const DEFAULT_PROFILE = 'generic-trigger';

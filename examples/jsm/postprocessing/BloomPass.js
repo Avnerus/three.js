@@ -1,15 +1,11 @@
-import {
-	AdditiveBlending,
-	LinearFilter,
-	RGBAFormat,
-	ShaderMaterial,
-	UniformsUtils,
-	Vector2,
-	WebGLRenderTarget
-} from "../../../build/three.module.js";
+import { AdditiveBlending, LinearFilter, RGBAFormat } from "../../../src/constants.js";
+import { ShaderMaterial } from "../../../src/materials/Materials.js";
+import { Vector2 } from "../../../src/math/Vector2.js";
+import { UniformsUtils } from "../../../src/renderers/shaders/UniformsUtils.js";
+import { WebGLRenderTarget } from "../../../src/renderers/WebGLRenderTarget.js";
 import { Pass } from "../postprocessing/Pass.js";
-import { CopyShader } from "../shaders/CopyShader.js";
 import { ConvolutionShader } from "../shaders/ConvolutionShader.js";
+import { CopyShader } from "../shaders/CopyShader.js";
 
 var BloomPass = function ( strength, kernelSize, sigma, resolution ) {
 

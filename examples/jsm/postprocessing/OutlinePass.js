@@ -1,20 +1,11 @@
-import {
-	AdditiveBlending,
-	Color,
-	DoubleSide,
-	LinearFilter,
-	Matrix4,
-	MeshBasicMaterial,
-	MeshDepthMaterial,
-	NoBlending,
-	RGBADepthPacking,
-	RGBAFormat,
-	ShaderMaterial,
-	UniformsUtils,
-	Vector2,
-	Vector3,
-	WebGLRenderTarget
-} from "../../../build/three.module.js";
+import { Vector3 } from "../../../../../calla/math/Vector3.js";
+import { AdditiveBlending, DoubleSide, LinearFilter, NoBlending, RGBADepthPacking, RGBAFormat } from "../../../src/constants.js";
+import { MeshBasicMaterial, MeshDepthMaterial, ShaderMaterial } from "../../../src/materials/Materials.js";
+import { Color } from "../../../src/math/Color.js";
+import { Matrix4 } from "../../../src/math/Matrix4.js";
+import { Vector2 } from "../../../src/math/Vector2.js";
+import { UniformsUtils } from "../../../src/renderers/shaders/UniformsUtils.js";
+import { WebGLRenderTarget } from "../../../src/renderers/WebGLRenderTarget.js";
 import { Pass } from "../postprocessing/Pass.js";
 import { CopyShader } from "../shaders/CopyShader.js";
 

@@ -1,11 +1,8 @@
-import {
-	DataTexture,
-	FloatType,
-	MathUtils,
-	RGBFormat,
-	ShaderMaterial,
-	UniformsUtils
-} from "../../../build/three.module.js";
+import { FloatType, RGBFormat } from "../../../src/constants.js";
+import { ShaderMaterial } from "../../../src/materials/Materials.js";
+import { MathUtils } from "../../../src/math/MathUtils.js";
+import { UniformsUtils } from "../../../src/renderers/shaders/UniformsUtils.js";
+import { DataTexture } from "../../../src/textures/DataTexture.js";
 import { Pass } from "../postprocessing/Pass.js";
 import { DigitalGlitch } from "../shaders/DigitalGlitch.js";
 

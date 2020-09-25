@@ -1,15 +1,10 @@
-import {
-	AdditiveBlending,
-	Color,
-	LinearFilter,
-	MeshBasicMaterial,
-	RGBAFormat,
-	ShaderMaterial,
-	UniformsUtils,
-	Vector2,
-	Vector3,
-	WebGLRenderTarget
-} from "../../../build/three.module.js";
+import { Vector3 } from "../../../../../calla/math/Vector3.js";
+import { AdditiveBlending, LinearFilter, RGBAFormat } from "../../../src/constants.js";
+import { MeshBasicMaterial, ShaderMaterial } from "../../../src/materials/Materials.js";
+import { Color } from "../../../src/math/Color.js";
+import { Vector2 } from "../../../src/math/Vector2.js";
+import { UniformsUtils } from "../../../src/renderers/shaders/UniformsUtils.js";
+import { WebGLRenderTarget } from "../../../src/renderers/WebGLRenderTarget.js";
 import { Pass } from "../postprocessing/Pass.js";
 import { CopyShader } from "../shaders/CopyShader.js";
 import { LuminosityHighPassShader } from "../shaders/LuminosityHighPassShader.js";

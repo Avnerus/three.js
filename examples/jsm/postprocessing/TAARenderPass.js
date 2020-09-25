@@ -1,6 +1,4 @@
-import {
-	WebGLRenderTarget
-} from "../../../build/three.module.js";
+import { WebGLRenderTarget } from "../../../src/renderers/WebGLRenderTarget.js";
 import { SSAARenderPass } from "../postprocessing/SSAARenderPass.js";
 /**
  *

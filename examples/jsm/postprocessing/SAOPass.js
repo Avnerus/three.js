@@ -1,29 +1,14 @@
-import {
-	AddEquation,
-	Color,
-	CustomBlending,
-	DepthTexture,
-	DstAlphaFactor,
-	DstColorFactor,
-	LinearFilter,
-	MeshDepthMaterial,
-	MeshNormalMaterial,
-	NearestFilter,
-	NoBlending,
-	RGBADepthPacking,
-	RGBAFormat,
-	ShaderMaterial,
-	UniformsUtils,
-	UnsignedShortType,
-	Vector2,
-	WebGLRenderTarget,
-	ZeroFactor
-} from "../../../build/three.module.js";
+import { AddEquation, CustomBlending, DstAlphaFactor, DstColorFactor, LinearFilter, NearestFilter, NoBlending, RGBADepthPacking, RGBAFormat, UnsignedShortType, ZeroFactor } from "../../../src/constants.js";
+import { MeshDepthMaterial, MeshNormalMaterial, ShaderMaterial } from "../../../src/materials/Materials.js";
+import { Color } from "../../../src/math/Color.js";
+import { Vector2 } from "../../../src/math/Vector2.js";
+import { UniformsUtils } from "../../../src/renderers/shaders/UniformsUtils.js";
+import { WebGLRenderTarget } from "../../../src/renderers/WebGLRenderTarget.js";
+import { DepthTexture } from "../../../src/textures/DepthTexture.js";
 import { Pass } from "../postprocessing/Pass.js";
-import { SAOShader } from "../shaders/SAOShader.js";
-import { DepthLimitedBlurShader } from "../shaders/DepthLimitedBlurShader.js";
-import { BlurShaderUtils } from "../shaders/DepthLimitedBlurShader.js";
 import { CopyShader } from "../shaders/CopyShader.js";
+import { BlurShaderUtils, DepthLimitedBlurShader } from "../shaders/DepthLimitedBlurShader.js";
+import { SAOShader } from "../shaders/SAOShader.js";
 import { UnpackDepthRGBAShader } from "../shaders/UnpackDepthRGBAShader.js";
 /**
  * SAO implementation inspired from bhouston previous SAO work

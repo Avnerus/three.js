@@ -1,17 +1,10 @@
-import {
-	LinearFilter,
-	NearestFilter,
-	RGBAFormat,
-	RGBFormat,
-	ShaderMaterial,
-	Texture,
-	UniformsUtils,
-	WebGLRenderTarget
-} from "../../../build/three.module.js";
+import { LinearFilter, NearestFilter, RGBAFormat, RGBFormat } from "../../../src/constants.js";
+import { ShaderMaterial } from "../../../src/materials/Materials.js";
+import { UniformsUtils } from "../../../src/renderers/shaders/UniformsUtils.js";
+import { WebGLRenderTarget } from "../../../src/renderers/WebGLRenderTarget.js";
+import { Texture } from "../../../src/textures/Texture.js";
 import { Pass } from "../postprocessing/Pass.js";
-import { SMAAEdgesShader } from "../shaders/SMAAShader.js";
-import { SMAAWeightsShader } from "../shaders/SMAAShader.js";
-import { SMAABlendShader } from "../shaders/SMAAShader.js";
+import { SMAABlendShader, SMAAEdgesShader, SMAAWeightsShader } from "../shaders/SMAAShader.js";
 
 var SMAAPass = function ( width, height ) {
 

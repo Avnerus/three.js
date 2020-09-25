@@ -1,14 +1,7 @@
-import {
-	Object3D
-} from '../../../build/three.module.js';
+import { Object3D } from '../../../src/core/Object3D.js';
+import { XRHandOculusMeshModel } from './XRHandOculusMeshModel.js';
+import { XRHandPrimitiveModel } from './XRHandPrimitiveModel.js';
 
-import {
-	XRHandPrimitiveModel
-} from './XRHandPrimitiveModel.js';
-
-import {
-	XRHandOculusMeshModel
-} from './XRHandOculusMeshModel.js';
 
 function XRHandModel( controller ) {
 

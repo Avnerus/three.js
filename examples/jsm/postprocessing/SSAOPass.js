@@ -1,32 +1,16 @@
-import {
-	AddEquation,
-	Color,
-	CustomBlending,
-	DataTexture,
-	DepthTexture,
-	DstAlphaFactor,
-	DstColorFactor,
-	FloatType,
-	LinearFilter,
-	MathUtils,
-	MeshNormalMaterial,
-	NearestFilter,
-	NoBlending,
-	RGBAFormat,
-	RepeatWrapping,
-	ShaderMaterial,
-	UniformsUtils,
-	UnsignedShortType,
-	Vector3,
-	WebGLRenderTarget,
-	ZeroFactor
-} from "../../../build/three.module.js";
-import { Pass } from "../postprocessing/Pass.js";
+import { AddEquation, CustomBlending, DstAlphaFactor, DstColorFactor, FloatType, LinearFilter, NearestFilter, NoBlending, RepeatWrapping, RGBAFormat, UnsignedShortType, ZeroFactor } from "../../../src/constants.js";
+import { MeshNormalMaterial, ShaderMaterial } from "../../../src/materials/Materials.js";
+import { Color } from "../../../src/math/Color.js";
+import { MathUtils } from "../../../src/math/MathUtils.js";
+import { Vector3 } from "../../../src/math/Vector3.js";
+import { UniformsUtils } from "../../../src/renderers/shaders/UniformsUtils.js";
+import { WebGLRenderTarget } from "../../../src/renderers/WebGLRenderTarget.js";
+import { DataTexture } from "../../../src/textures/DataTexture.js";
+import { DepthTexture } from "../../../src/textures/DepthTexture.js";
 import { SimplexNoise } from "../math/SimplexNoise.js";
-import { SSAOShader } from "../shaders/SSAOShader.js";
-import { SSAOBlurShader } from "../shaders/SSAOShader.js";
-import { SSAODepthShader } from "../shaders/SSAOShader.js";
+import { Pass } from "../postprocessing/Pass.js";
 import { CopyShader } from "../shaders/CopyShader.js";
+import { SSAOBlurShader, SSAODepthShader, SSAOShader } from "../shaders/SSAOShader.js";
 
 var SSAOPass = function ( scene, camera, width, height ) {
 

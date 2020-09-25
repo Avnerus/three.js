@@ -1,12 +1,10 @@
-import {
-	BackSide,
-	BoxBufferGeometry,
-	Mesh,
-	PerspectiveCamera,
-	Scene,
-	ShaderLib,
-	ShaderMaterial
-} from "../../../build/three.module.js";
+import { PerspectiveCamera } from "../../../src/cameras/PerspectiveCamera.js";
+import { BackSide } from "../../../src/constants.js";
+import { BoxBufferGeometry } from "../../../src/geometries/Geometries.js";
+import { ShaderMaterial } from "../../../src/materials/Materials.js";
+import { Mesh } from "../../../src/objects/Mesh.js";
+import { ShaderLib } from "../../../src/renderers/shaders/ShaderLib.js";
+import { Scene } from "../../../src/scenes/Scene.js";
 import { Pass } from "../postprocessing/Pass.js";
 
 var CubeTexturePass = function ( camera, envMap, opacity ) {

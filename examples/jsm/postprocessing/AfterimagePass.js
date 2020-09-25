@@ -1,12 +1,7 @@
-import {
-	LinearFilter,
-	MeshBasicMaterial,
-	NearestFilter,
-	RGBAFormat,
-	ShaderMaterial,
-	UniformsUtils,
-	WebGLRenderTarget
-} from "../../../build/three.module.js";
+import { LinearFilter, NearestFilter, RGBAFormat } from "../../../src/constants.js";
+import { MeshBasicMaterial, ShaderMaterial } from "../../../src/materials/Materials.js";
+import { UniformsUtils } from "../../../src/renderers/shaders/UniformsUtils.js";
+import { WebGLRenderTarget } from "../../../src/renderers/WebGLRenderTarget.js";
 import { Pass } from "../postprocessing/Pass.js";
 import { AfterimageShader } from "../shaders/AfterimageShader.js";
 

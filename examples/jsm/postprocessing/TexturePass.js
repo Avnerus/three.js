@@ -1,7 +1,5 @@
-import {
-	ShaderMaterial,
-	UniformsUtils
-} from "../../../build/three.module.js";
+import { ShaderMaterial } from "../../../src/materials/Materials.js";
+import { UniformsUtils } from "../../../src/renderers/shaders/UniformsUtils.js";
 import { Pass } from "../postprocessing/Pass.js";
 import { CopyShader } from "../shaders/CopyShader.js";
 

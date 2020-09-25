@@ -1,13 +1,8 @@
-import {
-	Color,
-	MeshDepthMaterial,
-	NearestFilter,
-	NoBlending,
-	RGBADepthPacking,
-	ShaderMaterial,
-	UniformsUtils,
-	WebGLRenderTarget
-} from "../../../build/three.module.js";
+import { NearestFilter, NoBlending, RGBADepthPacking } from "../../../src/constants.js";
+import { MeshDepthMaterial, ShaderMaterial } from "../../../src/materials/Materials.js";
+import { Color } from "../../../src/math/Color.js";
+import { UniformsUtils } from "../../../src/renderers/shaders/UniformsUtils.js";
+import { WebGLRenderTarget } from "../../../src/renderers/WebGLRenderTarget.js";
 import { Pass } from "../postprocessing/Pass.js";
 import { BokehShader } from "../shaders/BokehShader.js";
 /**

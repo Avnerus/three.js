@@ -1,17 +1,13 @@
-import {
-	Clock,
-	LinearFilter,
-	Mesh,
-	OrthographicCamera,
-	PlaneBufferGeometry,
-	RGBAFormat,
-	Vector2,
-	WebGLRenderTarget
-} from "../../../build/three.module.js";
-import { CopyShader } from "../shaders/CopyShader.js";
+import { OrthographicCamera } from "../../../src/cameras/OrthographicCamera.js";
+import { LinearFilter, RGBAFormat } from "../../../src/constants.js";
+import { Clock } from "../../../src/core/Clock.js";
+import { PlaneBufferGeometry } from "../../../src/geometries/Geometries.js";
+import { Vector2 } from "../../../src/math/Vector2.js";
+import { Mesh } from "../../../src/objects/Mesh.js";
+import { WebGLRenderTarget } from "../../../src/renderers/WebGLRenderTarget.js";
+import { ClearMaskPass, MaskPass } from "../postprocessing/MaskPass.js";
 import { ShaderPass } from "../postprocessing/ShaderPass.js";
-import { MaskPass } from "../postprocessing/MaskPass.js";
-import { ClearMaskPass } from "../postprocessing/MaskPass.js";
+import { CopyShader } from "../shaders/CopyShader.js";
 
 var EffectComposer = function ( renderer, renderTarget ) {
 
