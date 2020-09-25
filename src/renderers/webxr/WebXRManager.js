@@ -173,15 +173,15 @@ function WebXRManager( renderer, gl ) {
 
 	};
 
-	this.setOffsetReferenceSpace = function ( newReferenceSpace ) {
+	this.setOffsetReferenceSpace = function ( value ) {
 
-		offsetReferenceSpace = newReferenceSpace;
+		offsetReferenceSpace = value;
 
 	};
 
 	this.resetReferenceSpace = function () {
 
-		offsetReferenceSpace = null;
+		this.setOffsetReferenceSpace( null );
 
 	};
 

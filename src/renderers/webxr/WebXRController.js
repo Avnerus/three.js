@@ -5,7 +5,7 @@ function WebXRController() {
 	this._targetRay = null;
 	this._grip = null;
 	this._hand = null;
-
+	this.handedness = "none";
 }
 
 Object.assign( WebXRController.prototype, {
@@ -119,6 +119,8 @@ Object.assign( WebXRController.prototype, {
 
 		}
 
+		this.handedness = "none";
+
 		return this;
 
 	},
@@ -134,6 +136,8 @@ Object.assign( WebXRController.prototype, {
 		const hand = this._hand;
 
 		if ( inputSource ) {
+
+			this.handedness = inputSource.handedness;
 
 			if ( hand && inputSource.hand ) {
 

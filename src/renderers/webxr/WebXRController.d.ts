@@ -1,11 +1,13 @@
 import { Group } from '../../objects/Group';
-import { XREventType, XRFrame, XRInputSource, XRReferenceSpace } from './WebXR';
+import { XREventType, XRFrame, XRInputSource, XRReferenceSpace, XRHandedness } from './WebXR';
 
 export type XRControllerEventType = XREventType | 'disconnected' | 'connected'
 
 export class WebXRController {
 
 	constructor();
+
+	readonly handedness: XRHandedness;
 
 	getTargetRaySpace(): Group;
 	getGripSpace(): Group;
