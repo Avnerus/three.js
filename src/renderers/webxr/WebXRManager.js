@@ -102,7 +102,7 @@ function WebXRManager( renderer, gl ) {
 
 		if ( controller ) {
 
-			controller.dispatchEvent( { type: event.type, data: event.inputSource } );
+			controller.dispatchEvent( { type: event.type, data: event.inputSource, frame: event.frame } );
 
 		}
 
